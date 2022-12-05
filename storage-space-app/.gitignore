@@ -1,3 +1,6 @@
+# This file is used to ignore files which are generated
+# ----------------------------------------------------------------------------
+
 *~
 *.autosave
 *.a
@@ -29,46 +32,8 @@ qrc_*.cpp
 Thumbs.db
 *.res
 *.rc
-.qmake.cache
-.qmake.stash
-debug/
-release/
-.tmp.drivedownload/
-
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Binaries
-*.exe
-*.out
-*.app
-*.dll
-*.exe
+/.qmake.cache
+/.qmake.stash
 
 # qtcreator generated files
 *.pro.user*
@@ -100,3 +65,9 @@ release/
 
 # Python byte code
 *.pyc
+
+# Binaries
+# --------
+*.dll
+*.exe
+

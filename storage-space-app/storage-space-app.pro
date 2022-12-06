@@ -4,7 +4,14 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    src/mainwindow.cpp
+    src/filesearch.cpp \
+    src/mainwindow.cpp \
+    src/searchoptions.cpp
 
 HEADERS += \
-    include/mainwindow.h
+    include/filesearch.h \
+    include/mainwindow.h \
+    include/searchoptions.h
+
+INCLUDEPATH += \
+    include/

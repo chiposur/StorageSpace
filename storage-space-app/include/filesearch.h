@@ -17,6 +17,7 @@ public:
 
 private:
     void searchFiles(QDir dir);
+    bool isMatch(QFileInfo fileInfo);
 
     SearchOptions options;
     QVector<FileResult> *results;

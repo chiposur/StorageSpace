@@ -8,8 +8,10 @@ FileSearch::FileSearch(SearchOptions options, QObject *parent)
     this->options = options;
 }
 
-FileSearch::~FileSearch()
+QVector<FileResult> FileSearch::run()
 {
+    searchFiles(options.directory);
+    return results;
 }
 
 void FileSearch::searchFiles(QDir dir)
@@ -26,7 +28,7 @@ void FileSearch::searchFiles(QDir dir)
         {
             FileResult result;
             result.path = fileInfo.path();
-            results->append(result);
+            results.append(result);
         }
     }
 }

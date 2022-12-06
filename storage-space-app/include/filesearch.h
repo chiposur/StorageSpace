@@ -13,14 +13,14 @@ class FileSearch : QObject
 
 public:
     FileSearch(SearchOptions options, QObject *parent = nullptr);
-    ~FileSearch();
+    QVector<FileResult> run();
 
 private:
     void searchFiles(QDir dir);
     bool isMatch(QFileInfo fileInfo);
 
     SearchOptions options;
-    QVector<FileResult> *results;
+    QVector<FileResult> results;
 };
 
 #endif // FILESEARCH_H

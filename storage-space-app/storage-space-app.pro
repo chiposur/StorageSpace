@@ -4,7 +4,7 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    src/mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    include/mainwindow.h

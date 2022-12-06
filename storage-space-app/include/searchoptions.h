@@ -8,9 +8,10 @@ public:
     SearchOptions();
 
     QDir directory;
-    bool isRecursive = false;
+    bool isRecursive = true;
     int minFileSizeBytes = -1;
     int maxFileSizeBytes = -1;
+    QString fileNameExpr = "";
 };
 
 #endif // SEARCHOPTIONS_H

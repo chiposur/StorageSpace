@@ -1,5 +1,7 @@
 #include "filesearch.h"
 
+#include <QRegularExpression>
+
 FileSearch::FileSearch(SearchOptions options, QObject *parent)
     : QObject(parent)
 {
@@ -31,12 +33,18 @@ void FileSearch::searchFiles(QDir dir)
 
 bool FileSearch::isMatch(QFileInfo fileInfo)
 {
-    if (options.minFileSizeBytes > -1 && fileInfo.size() < options.minFileSizeBytes)
+    const int minFileSizeBytes = options.minFileSizeBytes;
+    const int maxFileSizeBytes = options.maxFileSizeBytes;
+    const QString fileNameExpr = options.fileNameExpr;
+    if (minFileSizeBytes > -1 && fileInfo.size() < minFileSizeBytes)
     {
         return false;
     }
-    if (options.maxFileSizeBytes > -1 && fileInfo.size() > options.maxFileSizeBytes)
+    if (maxFileSizeBytes > -1 && fileInfo.size() > maxFileSizeBytes)
     {
+        return false;
+    }
+    if (!fileNameExpr.isEmpty() && !fileInfo.fileName().contains(QRegularExpression(fileNameExpr))) {
         return false;
     }
     return true;

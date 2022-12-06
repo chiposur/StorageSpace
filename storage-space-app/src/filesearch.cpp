@@ -15,7 +15,7 @@ void FileSearch::searchFiles(QDir dir)
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); ++i)
     {
-        QFileInfo fileInfo = list[0];
+        QFileInfo fileInfo = list[i];
         if (options.isRecursive && fileInfo.isDir())
         {
             searchFiles(fileInfo.dir());

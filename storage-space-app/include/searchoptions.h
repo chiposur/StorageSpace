@@ -9,6 +9,8 @@ public:
 
     QDir directory;
     bool isRecursive = false;
+    int minFileSizeBytes = -1;
+    int maxFileSizeBytes = -1;
 };
 
 #endif // SEARCHOPTIONS_H

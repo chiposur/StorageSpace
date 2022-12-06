@@ -1,8 +1,10 @@
 #ifndef FILESEARCH_H
 #define FILESEARCH_H
 
+#include <QVector>
 #include <QObject>
 
+#include "fileresult.h"
 #include "searchoptions.h"
 
 class FileSearch : QObject
@@ -14,7 +16,10 @@ public:
     ~FileSearch();
 
 private:
+    void searchFiles(QDir dir);
+
     SearchOptions options;
+    QVector<FileResult> *results;
 };
 
 #endif // FILESEARCH_H

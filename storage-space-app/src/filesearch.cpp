@@ -35,19 +35,22 @@ void FileSearch::searchFiles(QDir dir)
 
 bool FileSearch::isMatch(QFileInfo fileInfo)
 {
+    const QString fileName = fileInfo.fileName();
+    const int fileSize = fileInfo.size();
     const int minFileSizeBytes = options.minFileSizeBytes;
     const int maxFileSizeBytes = options.maxFileSizeBytes;
-    const QString fileNameExpr = options.fileNameExpr;
-    if (minFileSizeBytes > -1 && fileInfo.size() < minFileSizeBytes)
+    const QString fileNameContainsTxt = options.fileNameContainsTxt;
+    const QRegularExpression fileNameExpr = QRegularExpression(options.fileNameExpr);
+    if (minFileSizeBytes > -1 && fileSize < minFileSizeBytes)
     {
         return false;
     }
-    if (maxFileSizeBytes > -1 && fileInfo.size() > maxFileSizeBytes)
+    if (maxFileSizeBytes > -1 && fileSize > maxFileSizeBytes)
     {
         return false;
     }
-    if (!fileNameExpr.isEmpty() && !fileInfo.fileName().contains(QRegularExpression(fileNameExpr))) {
+    if (fileNameExpr.isValid() && !fileName.contains(fileNameExpr)) {
         return false;
     }
-    return true;
+    return fileName.contains(fileNameContainsTxt);
 }

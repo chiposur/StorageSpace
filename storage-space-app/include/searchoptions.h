@@ -11,6 +11,7 @@ public:
     bool isRecursive = true;
     int minFileSizeBytes = -1;
     int maxFileSizeBytes = -1;
+    QString fileNameContainsTxt = "";
     QString fileNameExpr = "";
 };
 

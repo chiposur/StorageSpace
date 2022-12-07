@@ -6,12 +6,14 @@ SOURCES += \
     main.cpp \
     src/fileresult.cpp \
     src/filesearch.cpp \
+    src/filesearchbar.cpp \
     src/mainwindow.cpp \
     src/searchoptions.cpp
 
 HEADERS += \
     include/fileresult.h \
     include/filesearch.h \
+    include/filesearchbar.h \
     include/mainwindow.h \
     include/searchoptions.h
 

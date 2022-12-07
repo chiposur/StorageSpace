@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVBoxLayout>
+
+#include "filesearchbar.h"
 
 class MainWindow : public QMainWindow
 {
@@ -9,6 +12,9 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+
+private:
+    QVBoxLayout *mainLayout;
+    FileSearchBar *searchBar;
 };
 #endif // MAINWINDOW_H

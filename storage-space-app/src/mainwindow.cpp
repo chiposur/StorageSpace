@@ -28,12 +28,14 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::onSearchClicked(SearchOptions options)
 {
+    searchBar->setDisabled(true);
     emit startSearch(options);
 }
 
 
 void MainWindow::searchFinished(const QVector<FileResult> &results)
 {
+    searchBar->setEnabled(true);
     this->results = results;
 }
 

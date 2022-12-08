@@ -22,6 +22,7 @@ signals:
 private slots:
     void onSearchClicked(SearchOptions options);
     void searchFinished(const QVector<FileResult> &results);
+    void closeEvent(QCloseEvent *event);
 
 private:
     QVector<FileResult> results;

@@ -36,3 +36,9 @@ void MainWindow::searchFinished(const QVector<FileResult> &results)
 {
     this->results = results;
 }
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    workerThread.exit();
+    QMainWindow::closeEvent(event);
+}

@@ -34,6 +34,7 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     minLabel->setText("Min");
     maxLabel->setText("Max:");
     isRecursiveCheck = new QCheckBox(this);
+    isRecursiveCheck->setChecked(true);
     QLabel *isRecursiveLabel = new QLabel(this);
     isRecursiveLabel->setText("Recursive:");
     connect(isRecursiveCheck, SIGNAL(toggled(bool)), this, SLOT(onRecursiveChecked(bool)));

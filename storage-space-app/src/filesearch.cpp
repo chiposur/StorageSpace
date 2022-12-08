@@ -20,14 +20,18 @@ void FileSearch::searchFiles(QDir dir)
     for (int i = 0; i < list.size(); ++i)
     {
         QFileInfo fileInfo = list[i];
-        if (options.isRecursive && fileInfo.isDir())
+        bool isChildDir =
+            fileInfo.isDir() &&
+            fileInfo.fileName() != "." &&
+            fileInfo.fileName() != "..";
+        if (options.isRecursive && isChildDir)
         {
-            searchFiles(fileInfo.dir());
+            searchFiles(fileInfo.absoluteFilePath());
         }
         else if (fileInfo.isFile() && isMatch(fileInfo))
         {
             FileResult result;
-            result.path = fileInfo.path();
+            result.path = fileInfo.absoluteFilePath();
             results.append(result);
         }
     }

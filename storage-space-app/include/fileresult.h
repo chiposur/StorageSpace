@@ -8,6 +8,7 @@ public:
     FileResult();
 
     QString path;
+    qint64 fileSizeInBytes;
 };
 
 #endif // FILERESULT_H

@@ -32,6 +32,7 @@ void FileSearch::searchFiles(QDir dir)
         {
             FileResult result;
             result.path = fileInfo.absoluteFilePath();
+            result.fileSizeInBytes = fileInfo.size();
             results.append(result);
         }
     }

@@ -2,7 +2,6 @@
 #define SEARCHOPTIONS_H
 
 #include <QDir>
-#include <QMetaType>
 
 class SearchOptions {
 public:

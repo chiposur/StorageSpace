@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QLabel>
 #include <QMainWindow>
 #include <QThread>
 #include <QVBoxLayout>
@@ -28,5 +29,6 @@ private:
     QVector<FileResult> results;
     QVBoxLayout *mainLayout;
     FileSearchBar *searchBar;
+    QLabel *resultsCountLabel;
 };
 #endif // MAINWINDOW_H

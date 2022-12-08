@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     searchBar = new FileSearchBar(this);
     connect(searchBar, SIGNAL(searchClicked(SearchOptions)), this, SLOT(onSearchClicked(SearchOptions)));
     mainLayout->addWidget(searchBar);
+    resultsCountLabel = new QLabel(this);
+    mainLayout->addWidget(resultsCountLabel);
     mainLayout->addStretch();
     FileSearchWorker *worker = new FileSearchWorker;
     worker->moveToThread(&workerThread);
@@ -37,6 +39,7 @@ void MainWindow::searchFinished(const QVector<FileResult> &results)
 {
     searchBar->setEnabled(true);
     this->results = results;
+    resultsCountLabel->setText(QString("%1 results found").arg(results.count()));
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

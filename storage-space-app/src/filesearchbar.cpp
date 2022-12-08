@@ -6,7 +6,7 @@
 FileSearchBar::FileSearchBar(QWidget *parent) :
     QWidget(parent)
 {
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
     setLayout(mainLayout);
     QHBoxLayout *firstRow = new QHBoxLayout();

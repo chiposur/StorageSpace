@@ -1,5 +1,6 @@
 #include <QVBoxLayout>
 
+#include "filesearch.h"
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -11,6 +12,12 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout = new QVBoxLayout();
     centralWidget()->setLayout(mainLayout);
     searchBar = new FileSearchBar(this);
+    connect(searchBar, SIGNAL(searchClicked(SearchOptions)), this, SLOT(onSearchClicked(SearchOptions)));
     mainLayout->addWidget(searchBar);
     mainLayout->addStretch();
+}
+
+void MainWindow::onSearchClicked(SearchOptions options)
+{
+
 }

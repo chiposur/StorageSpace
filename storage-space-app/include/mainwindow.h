@@ -13,6 +13,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
 
+private slots:
+    void onSearchClicked(SearchOptions options);
+
 private:
     QVBoxLayout *mainLayout;
     FileSearchBar *searchBar;

@@ -7,10 +7,10 @@ class SearchOptions {
 public:
     SearchOptions();
 
-    QDir directory;
+    QDir directory = QDir(".");
     bool isRecursive = true;
-    int minFileSizeBytes = -1;
-    int maxFileSizeBytes = -1;
+    qint64 minFileSizeBytes = -1;
+    qint64 maxFileSizeBytes = -1;
     QString fileNameContainsTxt = "";
     QString fileNameExpr = "";
 };

@@ -29,6 +29,7 @@ private slots:
     void onRecursiveChecked(bool checked);
     void onSearchDirChanged(const QString &text);
     void onSearchClicked();
+    void onFileDlgBtnClicked();
 
 private:
     QLineEdit *fileNameContainsEdit;
@@ -38,6 +39,7 @@ private:
     FileSizeInput *maxInput;
     QCheckBox *isRecursiveCheck;
     QPushButton *searchBtn;
+    QPushButton *fileDlgBtn;
 };
 
 #endif // FILESEARCHBAR_H

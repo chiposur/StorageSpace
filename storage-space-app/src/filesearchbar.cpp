@@ -1,3 +1,4 @@
+#include <QFileDialog>
 #include <QLabel>
 #include <QVBoxLayout>
 
@@ -51,10 +52,13 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     connect(searchDirEdit, SIGNAL(textChanged(QString)), this, SLOT(onSearchDirChanged(QString)));
     QLabel *searchDirLabel = new QLabel(this);
     searchDirLabel->setText("Search directory:");
+    fileDlgBtn = new QPushButton("Select folder", this);
+    connect(fileDlgBtn, SIGNAL(clicked()), this, SLOT(onFileDlgBtnClicked()));
     searchBtn = new QPushButton("Search", this);
     connect(searchBtn, SIGNAL(clicked()), this, SLOT(onSearchClicked()));
     thirdRow->addWidget(searchDirLabel);
     thirdRow->addWidget(searchDirEdit);
+    thirdRow->addWidget(fileDlgBtn);
     thirdRow->addWidget(searchBtn);
     mainLayout->addStretch();
 }
@@ -92,4 +96,14 @@ void FileSearchBar::onSearchDirChanged(const QString &text)
 void FileSearchBar::onSearchClicked()
 {
     emit searchClicked(options);
+}
+
+void FileSearchBar::onFileDlgBtnClicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::Directory);
+    if (dialog.exec())
+    {
+        searchDirEdit->setText(dialog.directory().path());
+    }
 }

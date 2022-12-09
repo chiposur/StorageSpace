@@ -27,6 +27,7 @@ private slots:
     void onMinInputChanged(qint64 minSize);
     void onMaxInputChanged(qint64 maxSize);
     void onRecursiveChecked(bool checked);
+    void onSearchDirChanged(const QString &text);
     void onSearchClicked();
 
 private:

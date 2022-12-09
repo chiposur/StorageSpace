@@ -48,6 +48,7 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     QHBoxLayout *thirdRow = new QHBoxLayout();
     mainLayout->addLayout(thirdRow);
     searchDirEdit = new QLineEdit(options.directory.absolutePath(), this);
+    connect(searchDirEdit, SIGNAL(textChanged(QString)), this, SLOT(onSearchDirChanged(QString)));
     QLabel *searchDirLabel = new QLabel(this);
     searchDirLabel->setText("Search directory:");
     searchBtn = new QPushButton("Search", this);
@@ -81,6 +82,11 @@ void FileSearchBar::onMaxInputChanged(qint64 maxSize)
 void FileSearchBar::onRecursiveChecked(bool checked)
 {
     options.isRecursive = checked;
+}
+
+void FileSearchBar::onSearchDirChanged(const QString &text)
+{
+    options.directory = QDir(text);
 }
 
 void FileSearchBar::onSearchClicked()

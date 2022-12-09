@@ -8,7 +8,7 @@ FileSearch::FileSearch(SearchOptions options, QObject *parent)
     this->options = options;
 }
 
-QVector<FileResult> FileSearch::run()
+const QVector<FileResult> &FileSearch::run()
 {
     searchFiles(options.directory);
     return results;

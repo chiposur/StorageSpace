@@ -15,7 +15,7 @@ signals:
     void fileSizeChanged(qint64 fileSizeInBytes);
 
 private slots:
-    void onFileSizeChanged(double fileSize);
+    void onFileSizeChanged(int index);
 
 private:
     QDoubleSpinBox *fileSizeSpinBox;

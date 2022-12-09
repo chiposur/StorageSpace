@@ -12,6 +12,7 @@ FileSizeInput::FileSizeInput(QWidget *parent)
     fileSizeSpinBox->setRange(-1, DBL_MAX);
     fileSizeSpinBox->setValue(-1);
     unitComboBox = new QComboBox(this);
+    connect(unitComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onFileSizeChanged(int)));
     unitComboBox->setFixedWidth(40);
     QStringList units;
     units << "KB" << "MB" << "GB" << "TB";
@@ -22,19 +23,34 @@ FileSizeInput::FileSizeInput(QWidget *parent)
     layout()->addWidget(unitComboBox);
 }
 
-void FileSizeInput::onFileSizeChanged(double fileSize)
+void FileSizeInput::onFileSizeChanged(int index)
 {
-    switch (unitComboBox->currentIndex())
+    double fileSize = fileSizeSpinBox->value();
+    switch (index)
     {
-    case 0:
-        emit fileSizeChanged(fileSize * 1000);
-    case 1:
-        emit fileSizeChanged(fileSize * 1000000);
-    case 2:
-        emit fileSizeChanged(fileSize * 1000000000);
-    case 3:
-        emit fileSizeChanged(fileSize * 1000000000000);
-    default:
-        emit fileSizeChanged(fileSize * 1000);
+        case 0:
+        {
+            emit fileSizeChanged(fileSize * 1e3);
+            break;
+        }
+        case 1:
+        {
+            emit fileSizeChanged(fileSize * 1e6);
+            break;
+        }
+        case 2:
+        {
+            emit fileSizeChanged(fileSize * 1e9);
+            break;
+        }
+        case 3:
+        {
+            emit fileSizeChanged(fileSize * 1e12);
+            break;
+        }
+        default:
+        {
+            emit fileSizeChanged(fileSize * 1e3);
+        }
     }
 }

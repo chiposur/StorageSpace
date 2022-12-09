@@ -5,6 +5,8 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     src/fileresult.cpp \
+    src/fileresultstable.cpp \
+    src/fileresultstablemodel.cpp \
     src/filesearch.cpp \
     src/filesearchbar.cpp \
     src/filesearchworker.cpp \
@@ -14,6 +16,8 @@ SOURCES += \
 
 HEADERS += \
     include/fileresult.h \
+    include/fileresultstable.h \
+    include/fileresultstablemodel.h \
     include/filesearch.h \
     include/filesearchbar.h \
     include/filesearchworker.h \

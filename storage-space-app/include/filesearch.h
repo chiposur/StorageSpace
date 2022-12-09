@@ -13,7 +13,7 @@ class FileSearch : QObject
 
 public:
     FileSearch(SearchOptions options, QObject *parent = nullptr);
-    QVector<FileResult> run();
+    const QVector<FileResult> &run();
 
 private:
     void searchFiles(QDir dir);

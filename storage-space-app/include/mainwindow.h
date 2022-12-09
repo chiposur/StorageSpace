@@ -8,6 +8,7 @@
 
 #include "fileresult.h"
 #include "filesearchbar.h"
+#include "fileresultstable.h"
 
 class MainWindow : public QMainWindow
 {
@@ -30,5 +31,6 @@ private:
     QVBoxLayout *mainLayout;
     FileSearchBar *searchBar;
     QLabel *resultsCountLabel;
+    FileResultsTable *resultsTable;
 };
 #endif // MAINWINDOW_H

@@ -1,0 +1,80 @@
+#include "fileresultstablemodel.h"
+
+FileResultsTableModel::FileResultsTableModel()
+{
+}
+
+FileResultsTableModel::~FileResultsTableModel()
+{
+}
+
+int FileResultsTableModel::rowCount(const QModelIndex &index) const
+{
+    Q_UNUSED(index)
+    return results.count();
+}
+
+int FileResultsTableModel::columnCount(const QModelIndex &index) const
+{
+    Q_UNUSED(index)
+    return headers.count();
+}
+
+QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
+{
+    if (role == Qt::DisplayRole)
+    {
+        FileResult result = results[index.row()];
+        switch (index.column())
+        {
+            case 0:
+            {
+                return result.path;
+                break;
+            }
+            case 1:
+            {
+                double bytes = static_cast<double>(result.fileSizeInBytes);
+                return QString::number(bytes / 1e6, 'c', 6);
+                break;
+            }
+            default:
+            {
+                return QVariant();
+            }
+        }
+    }
+    return QVariant();
+}
+
+QModelIndex FileResultsTableModel::parent(const QModelIndex &index) const
+{
+    Q_UNUSED(index)
+    return QModelIndex();
+}
+
+QVariant FileResultsTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+{
+    if (role != Qt::DisplayRole || orientation != Qt::Horizontal)
+    {
+        return QVariant();
+    }
+    return headers.at(section);
+}
+
+Qt::ItemFlags FileResultsTableModel::flags(const QModelIndex &index) const
+{
+    Q_UNUSED(index)
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+}
+
+void FileResultsTableModel::setRows(const QVector<FileResult> &results)
+{
+    this->results = QVector<FileResult>(results);
+    emit layoutChanged();
+}
+
+void FileResultsTableModel::setHeaders(const QStringList &headers)
+{
+    this->headers = headers;
+}

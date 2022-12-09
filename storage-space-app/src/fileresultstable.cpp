@@ -8,7 +8,7 @@ FileResultsTable::FileResultsTable(QWidget *parent)
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
     model = new FileResultsTableModel();
     QStringList headers;
-    headers << "File Path" << "Size (MB)";
+    headers << "File Path" << "Size";
     model->setHeaders(headers);
     setModel(model);
     horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);

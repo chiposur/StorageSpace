@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QMap>
 #include <QThread>
+#include <QTimer>
 #include <QVBoxLayout>
 
 #include "fileresult.h"
@@ -28,13 +29,20 @@ private slots:
     void closeEvent(QCloseEvent *event);
     void deleteFile(QFile &file, QDir dir);
     void openInFolder(QFileInfo file);
+    void onResultsTimerTick();
 
 private:
+    QString resultsTimeString();
+
     QVector<FileResult> results;
     QMap<QString, int> dirToResultsIndex;
     QVBoxLayout *mainLayout;
     FileSearchBar *searchBar;
     QLabel *resultsCountLabel;
+    QLabel *resultsTimeLabel;
     FileResultsTable *resultsTable;
+    QTimer *resultsTimer;
+    static const int RESULTS_TIMER_INTERVAL_MS = 30;
+    int resultsTimeMs = 0;
 };
 #endif // MAINWINDOW_H

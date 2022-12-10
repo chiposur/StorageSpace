@@ -21,8 +21,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(searchBar, SIGNAL(searchClicked(SearchOptions)), this, SLOT(onSearchClicked(SearchOptions)));
     mainLayout->addWidget(searchBar);
     resultsCountLabel = new QLabel(this);
+    resultsTimeLabel = new QLabel(this);
+    QHBoxLayout *resultInfoRow = new QHBoxLayout();
+    resultInfoRow->addWidget(resultsCountLabel);
+    resultInfoRow->addStretch();
+    resultInfoRow->addWidget(resultsTimeLabel);
+    mainLayout->addLayout(resultInfoRow);
     resultsTable = new FileResultsTable(this);
-    mainLayout->addWidget(resultsCountLabel);
     mainLayout->addWidget(resultsTable);
     FileSearchWorker *worker = new FileSearchWorker;
     worker->moveToThread(&workerThread);
@@ -30,20 +35,32 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this, &MainWindow::startSearch, worker, &FileSearchWorker::search);
     connect(worker, &FileSearchWorker::resultsReady, this, &MainWindow::searchFinished);
     workerThread.start();
+    resultsTimer = new QTimer(this);
+    connect(resultsTimer, SIGNAL(timeout()), this, SLOT(onResultsTimerTick()));
 }
 
 void MainWindow::onSearchClicked(SearchOptions options)
 {
+    resultsTable->setDisabled(true);
+    results.clear();
+    resultsTable->setItems(results);
     searchBar->setDisabled(true);
+    resultsCountLabel->setText("Searching.");
+    resultsTimeMs = 0;
     emit startSearch(options);
+    resultsTimer->start(RESULTS_TIMER_INTERVAL_MS);
 }
 
 
 void MainWindow::searchFinished(const QVector<FileResult> &results)
 {
+    resultsTable->setEnabled(true);
+    resultsTimer->stop();
     searchBar->setEnabled(true);
     this->results = results;
-    resultsCountLabel->setText(QString("%1 results found").arg(results.count()));
+    resultsCountLabel->setText(
+        QString("%1 results found in %2").
+            arg(QString::number(results.count()), resultsTimeString()));
     resultsTable->setItems(results);
 }
 
@@ -91,4 +108,49 @@ void MainWindow::openInFolder(QFileInfo fileInfo)
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.exec();
     }
+}
+
+void MainWindow::onResultsTimerTick()
+{
+    resultsTimeMs += RESULTS_TIMER_INTERVAL_MS;
+    int ellipsisCount = resultsTimeMs / 1000 % 3;
+    QString searchingTxt;
+    switch (ellipsisCount)
+    {
+        case 0:
+        {
+            searchingTxt = "Searching.";
+            break;
+        }
+        case 1:
+        {
+            searchingTxt = "Searching..";
+            break;
+        }
+        case 2:
+        {
+            searchingTxt = "Searching...";
+            break;
+        }
+    }
+    resultsCountLabel->setText(searchingTxt);
+    resultsCountLabel->update();
+    resultsTimeLabel->setText(resultsTimeString());
+    resultsTimeLabel->update();
+}
+
+QString MainWindow::resultsTimeString()
+{
+    if (resultsTimeMs == 0)
+    {
+        return "<1ms";
+    }
+    int hours = resultsTimeMs / (1000 * 60 * 60);
+    int minutes = resultsTimeMs / (1000 * 60);
+    int seconds = resultsTimeMs / 1000;
+    QString hoursStr = QString::number(hours);
+    QString minutesStr = QString::number(minutes % 60);
+    QString secondsStr = QString::number(seconds % 60);
+    QString msStr = QString::number(resultsTimeMs % 1000);
+    return QString("%1:%2:%3:%4").arg(hoursStr, minutesStr, secondsStr, msStr);
 }

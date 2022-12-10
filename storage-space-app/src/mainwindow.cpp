@@ -144,14 +144,14 @@ QString MainWindow::resultsTimeString()
 {
     if (resultsTimeMs == 0)
     {
-        return "<1ms";
+        return QString("<%1ms").arg(QString::number(RESULTS_TIMER_INTERVAL_MS).rightJustified(3, '0'));
     }
     int hours = resultsTimeMs / (1000 * 60 * 60);
     int minutes = resultsTimeMs / (1000 * 60);
     int seconds = resultsTimeMs / 1000;
     QString hoursStr = QString::number(hours);
-    QString minutesStr = QString::number(minutes % 60);
-    QString secondsStr = QString::number(seconds % 60);
-    QString msStr = QString::number(resultsTimeMs % 1000);
+    QString minutesStr = QString::number(minutes % 60).rightJustified(2, '0');
+    QString secondsStr = QString::number(seconds % 60).rightJustified(2, '0');
+    QString msStr = QString::number(resultsTimeMs % 1000).rightJustified(3, '0');
     return QString("%1:%2:%3:%4").arg(hoursStr, minutesStr, secondsStr, msStr);
 }

@@ -42,7 +42,7 @@ private:
     QLabel *resultsTimeLabel;
     FileResultsTable *resultsTable;
     QTimer *resultsTimer;
-    static const int RESULTS_TIMER_INTERVAL_MS = 30;
+    static const int RESULTS_TIMER_INTERVAL_MS = 1;
     int resultsTimeMs = 0;
 };
 #endif // MAINWINDOW_H

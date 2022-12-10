@@ -24,7 +24,7 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole)
     {
-        FileResult result = results[index.row()];
+        FileResult result = results.at(index.row());
         switch (index.column())
         {
             case 0:
@@ -88,6 +88,14 @@ Qt::ItemFlags FileResultsTableModel::flags(const QModelIndex &index) const
 {
     Q_UNUSED(index)
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+}
+
+void FileResultsTableModel::sort(int column, Qt::SortOrder order)
+{
+    if (column == 0 || column == 1)
+    {
+        QAbstractTableModel::sort(column, order);
+    }
 }
 
 void FileResultsTableModel::setRows(const QVector<FileResult> &results)

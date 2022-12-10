@@ -11,10 +11,13 @@ FileResultsTable::FileResultsTable(QWidget *parent)
     QStringList headers;
     headers << "File Path" << "Size" << "" << "";
     model->setHeaders(headers);
-    setModel(model);
+    sortProxy = new FileResultsTableSortProxy();
+    sortProxy->setSourceModel(model);
+    setModel(sortProxy);
     setItemDelegate(new FileResultsTableDelegate());
     horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     setMouseTracking(true);
+    setSortingEnabled(true);
 }
 
 FileResultsTable::~FileResultsTable()
@@ -23,5 +26,6 @@ FileResultsTable::~FileResultsTable()
 
 void FileResultsTable::setItems(const QVector<FileResult> &results)
 {
+    sortProxy->setItems(results);
     model->setRows(results);
 }

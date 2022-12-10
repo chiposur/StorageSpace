@@ -5,6 +5,7 @@
 
 #include "fileresult.h"
 #include "fileresultstablemodel.h"
+#include "fileresultstablesortproxy.h"
 
 class FileResultsTable : public QTableView
 {
@@ -18,6 +19,7 @@ public:
 
 private:
     FileResultsTableModel *model;
+    FileResultsTableSortProxy *sortProxy;
 };
 
 #endif // FILERESULTSTABLE_H

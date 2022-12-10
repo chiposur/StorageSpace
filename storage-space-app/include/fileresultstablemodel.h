@@ -17,6 +17,7 @@ public:
     QModelIndex parent(const QModelIndex &index) const;
     QVariant headerData(int section, Qt::Orientation, int role = Qt::DisplayRole) const;
     Qt::ItemFlags flags(const QModelIndex &index) const;
+    void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
 
     void setRows(const QVector<FileResult> &results);
     void setHeaders(const QStringList &headers);

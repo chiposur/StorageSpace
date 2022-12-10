@@ -1,4 +1,7 @@
+#include <QDesktopServices>
+#include <QMessageBox>
 #include <QMetaType>
+#include <QUrl>
 #include <QVBoxLayout>
 
 #include "filesearchworker.h"
@@ -48,4 +51,44 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     workerThread.exit();
     QMainWindow::closeEvent(event);
+}
+
+void MainWindow::deleteFile(QFile &file, QDir dir)
+{
+    QMessageBox msgBox;
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    if (file.remove())
+    {
+        QString absoluteFilePath = dir.absoluteFilePath(file.fileName());
+        int index = dirToResultsIndex.value(absoluteFilePath, -1);
+        if (index > -1)
+        {
+            results.removeAt(index);
+            resultsTable->setItems(results);
+            dirToResultsIndex.remove(absoluteFilePath);
+        }
+        msgBox.setText(QString("Successfully deleted \"%1\"").arg(file.fileName()));
+        msgBox.setIcon(QMessageBox::Information);
+    }
+    else
+    {
+        msgBox.setText(QString("Unable to delete \"%1\"").arg(file.fileName()));
+        msgBox.setInformativeText("Please check that the file exists and is not used by another process.");
+        msgBox.setIcon(QMessageBox::Warning);
+    }
+    msgBox.exec();
+}
+
+void MainWindow::openInFolder(QFileInfo fileInfo)
+{
+    QString folderPath = fileInfo.path();
+    bool opened = QDesktopServices::openUrl(QUrl(QString("file:///%1").arg(folderPath), QUrl::TolerantMode));
+    if (!opened)
+    {
+        QMessageBox msgBox;
+        msgBox.setText(QString("Unable to open \"%1\"").arg(folderPath));
+        msgBox.setInformativeText("Please check that the folder exists and is able to be opened.");
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+    }
 }

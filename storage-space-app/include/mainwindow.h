@@ -3,6 +3,7 @@
 
 #include <QLabel>
 #include <QMainWindow>
+#include <QMap>
 #include <QThread>
 #include <QVBoxLayout>
 
@@ -25,9 +26,12 @@ private slots:
     void onSearchClicked(SearchOptions options);
     void searchFinished(const QVector<FileResult> &results);
     void closeEvent(QCloseEvent *event);
+    void deleteFile(QFile &file, QDir dir);
+    void openInFolder(QFileInfo file);
 
 private:
     QVector<FileResult> results;
+    QMap<QString, int> dirToResultsIndex;
     QVBoxLayout *mainLayout;
     FileSearchBar *searchBar;
     QLabel *resultsCountLabel;

@@ -90,6 +90,7 @@ void FileSearchBar::onRecursiveChecked(bool checked)
 
 void FileSearchBar::onSearchDirChanged(const QString &text)
 {
+    searchBtn->setDisabled(text.isEmpty());
     options.directory = QDir(text);
 }
 

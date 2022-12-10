@@ -6,6 +6,7 @@ SOURCES += \
     main.cpp \
     src/fileresult.cpp \
     src/fileresultstable.cpp \
+    src/fileresultstabledelegate.cpp \
     src/fileresultstablemodel.cpp \
     src/filesearch.cpp \
     src/filesearchbar.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 HEADERS += \
     include/fileresult.h \
     include/fileresultstable.h \
+    include/fileresultstabledelegate.h \
     include/fileresultstablemodel.h \
     include/filesearch.h \
     include/filesearchbar.h \

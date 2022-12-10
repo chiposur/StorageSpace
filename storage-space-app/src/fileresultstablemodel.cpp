@@ -57,7 +57,7 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
                     size = QString::number(bytes / 1e12, 'c', 3);
                     unit = "TB";
                 }
-                return QString("%1%2").arg(size, unit);
+                return QString("%1 %2").arg(size, unit);
                 break;
             }
             default:

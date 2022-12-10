@@ -58,6 +58,7 @@ void MainWindow::searchFinished(const QVector<FileResult> &results)
     resultsTimer->stop();
     searchBar->setEnabled(true);
     this->results = results;
+    resultsTimeLabel->clear();
     resultsCountLabel->setText(
         QString("%1 results found in %2").
             arg(QString::number(results.count()), resultsTimeString()));

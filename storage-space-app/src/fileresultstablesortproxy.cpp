@@ -2,6 +2,16 @@
 
 FileResultsTableSortProxy::FileResultsTableSortProxy()
 {
+    auto *worker = new FileResultsTableSortProxyWorker;
+    worker->moveToThread(&workerThread);
+    connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
+    connect(
+        this,
+        &FileResultsTableSortProxy::startSort,
+        worker,
+        &FileResultsTableSortProxyWorker::sort);
+    connect(worker, SIGNAL(sortingComplete()), this, SLOT(onSortingComplete()));
+    workerThread.start();
 }
 
 bool FileResultsTableSortProxy::lessThan(
@@ -27,7 +37,28 @@ bool FileResultsTableSortProxy::lessThan(
     }
 }
 
+void FileResultsTableSortProxy::sort(int column, Qt::SortOrder order)
+{
+    emit sortingInProgress(true);
+    if (!sorting)
+    {
+        sorting = true;
+        emit startSort(this, column, order);
+    }
+}
+
+void FileResultsTableSortProxy::superSort(int column, Qt::SortOrder order)
+{
+    QSortFilterProxyModel::sort(column, order);
+}
+
 void FileResultsTableSortProxy::setItems(const QVector<FileResult> &results)
 {
     this->results = QVector<FileResult>(results);
+}
+
+void FileResultsTableSortProxy::onSortingComplete()
+{
+    emit sortingInProgress(false);
+    sorting = false;
 }

@@ -18,10 +18,17 @@ FileResultsTable::FileResultsTable(QWidget *parent)
     horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     setMouseTracking(true);
     setSortingEnabled(true);
+    connect(sortProxy, SIGNAL(sortingInProgress(bool)), this, SLOT(onSortingInProgress(bool)));
 }
 
 FileResultsTable::~FileResultsTable()
 {
+}
+
+void FileResultsTable::onSortingInProgress(bool inProgress)
+{
+    setDisabled(inProgress);
+    horizontalHeader()->setDisabled(inProgress);
 }
 
 void FileResultsTable::setItems(const QVector<FileResult> &results)

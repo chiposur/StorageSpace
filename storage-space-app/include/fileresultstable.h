@@ -17,6 +17,9 @@ public:
 
     void setItems(const QVector<FileResult> &results);
 
+private slots:
+    void onSortingInProgress(bool inProgress);
+
 private:
     FileResultsTableModel *model;
     FileResultsTableSortProxy *sortProxy;

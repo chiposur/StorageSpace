@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     qRegisterMetaType<SearchOptions>("SearchOptions");
     qRegisterMetaType<QVector<FileResult>>("QVector<FileResult>");
+    qRegisterMetaType<Qt::SortOrder>("Qt::SortOrder");
     setWindowTitle("Storage Space");
     setWindowIcon(APP_ICON);
     setMinimumSize(QSize(640, 480));

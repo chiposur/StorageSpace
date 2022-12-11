@@ -9,6 +9,7 @@ SOURCES += \
     src/fileresultstabledelegate.cpp \
     src/fileresultstablemodel.cpp \
     src/fileresultstablesortproxy.cpp \
+    src/fileresultstablesortproxyworker.cpp \
     src/filesearch.cpp \
     src/filesearchbar.cpp \
     src/filesearchworker.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     include/fileresultstabledelegate.h \
     include/fileresultstablemodel.h \
     include/fileresultstablesortproxy.h \
+    include/fileresultstablesortproxyworker.h \
     include/filesearch.h \
     include/filesearchbar.h \
     include/filesearchworker.h \

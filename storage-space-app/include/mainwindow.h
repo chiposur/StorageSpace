@@ -44,5 +44,6 @@ private:
     QTimer *resultsTimer;
     static const int RESULTS_TIMER_INTERVAL_MS = 1;
     int resultsTimeMs = 0;
+    const QIcon APP_ICON = QIcon(QPixmap(":/images/app-icon.ico"));
 };
 #endif // MAINWINDOW_H

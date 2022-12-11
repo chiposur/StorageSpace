@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     qRegisterMetaType<SearchOptions>("SearchOptions");
     qRegisterMetaType<QVector<FileResult>>("QVector<FileResult>");
     setWindowTitle("Storage Space");
+    setWindowIcon(APP_ICON);
     setMinimumSize(QSize(640, 480));
     setCentralWidget(new QWidget());
     mainLayout = new QVBoxLayout();

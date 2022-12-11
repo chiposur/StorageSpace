@@ -31,3 +31,6 @@ HEADERS += \
 
 INCLUDEPATH += \
     include/
+
+RESOURCES += \
+    images.qrc

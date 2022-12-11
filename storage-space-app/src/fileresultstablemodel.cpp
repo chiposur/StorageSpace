@@ -90,14 +90,6 @@ Qt::ItemFlags FileResultsTableModel::flags(const QModelIndex &index) const
     return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
-void FileResultsTableModel::sort(int column, Qt::SortOrder order)
-{
-    if (column == 0 || column == 1)
-    {
-        QAbstractTableModel::sort(column, order);
-    }
-}
-
 void FileResultsTableModel::setRows(const QVector<FileResult> &results)
 {
     this->results = QVector<FileResult>(results);

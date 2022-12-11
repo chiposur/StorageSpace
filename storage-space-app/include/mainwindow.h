@@ -25,14 +25,18 @@ signals:
 
 private slots:
     void onSearchClicked(SearchOptions options);
-    void searchFinished(const QVector<FileResult> &results);
+    void onSortStarted();
+    void onSearchFinished(const QVector<FileResult> &results);
+    void onSortFinished();
     void closeEvent(QCloseEvent *event);
     void deleteFile(QFile &file, QDir dir);
     void openInFolder(QFileInfo file);
     void onResultsTimerTick();
+    void onSortTimerTick();
 
 private:
     QString resultsTimeString();
+    QString resultsString();
 
     QVector<FileResult> results;
     QMap<QString, int> dirToResultsIndex;
@@ -42,8 +46,11 @@ private:
     QLabel *resultsTimeLabel;
     FileResultsTable *resultsTable;
     QTimer *resultsTimer;
+    QTimer *sortTimer;
     static const int RESULTS_TIMER_INTERVAL_MS = 1;
+    static const int SORT_TIMER_INTERVAL_MS = 1000;
     int resultsTimeMs = 0;
+    int sortTimeMs = 0;
     const QIcon APP_ICON = QIcon(QPixmap(":/images/app-icon.ico"));
 };
 #endif // MAINWINDOW_H

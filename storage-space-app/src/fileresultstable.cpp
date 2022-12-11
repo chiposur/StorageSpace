@@ -29,6 +29,14 @@ void FileResultsTable::onSortingInProgress(bool inProgress)
 {
     setDisabled(inProgress);
     horizontalHeader()->setDisabled(inProgress);
+    if (inProgress)
+    {
+        sortStarted();
+    }
+    else
+    {
+        sortFinished();
+    }
 }
 
 void FileResultsTable::setItems(const QVector<FileResult> &results)

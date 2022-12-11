@@ -21,7 +21,8 @@ bool FileResultsTableSortProxy::lessThan(
     int column = source_left.column();
     FileResult leftResult = results.at(source_left.row());
     FileResult rightResult = results.at(source_right.row());
-    switch (column) {
+    switch (column)
+    {
         case 0:
         {
             return leftResult.path < rightResult.path;

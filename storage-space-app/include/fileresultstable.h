@@ -17,6 +17,10 @@ public:
 
     void setItems(const QVector<FileResult> &results);
 
+signals:
+    void sortStarted();
+    void sortFinished();
+
 private slots:
     void onSortingInProgress(bool inProgress);
 

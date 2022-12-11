@@ -54,7 +54,8 @@ bool FileSearch::isMatch(QFileInfo fileInfo)
     {
         return false;
     }
-    if (fileNameExpr.isValid() && !fileName.contains(fileNameExpr)) {
+    if (fileNameExpr.isValid() && !fileName.contains(fileNameExpr))
+    {
         return false;
     }
     return fileName.contains(fileNameContainsTxt);

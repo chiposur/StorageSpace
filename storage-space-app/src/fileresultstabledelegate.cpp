@@ -17,7 +17,8 @@ void FileResultsTableDelegate::paint(
         QStyledItemDelegate::paint(painter, option, index);
         return;
     }
-    else if (index.column() == 2) {
+    else if (index.column() == 2)
+    {
         btnText = "Open in folder";
     }
     else

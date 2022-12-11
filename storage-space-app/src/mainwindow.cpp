@@ -35,10 +35,14 @@ MainWindow::MainWindow(QWidget *parent)
     worker->moveToThread(&workerThread);
     connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
     connect(this, &MainWindow::startSearch, worker, &FileSearchWorker::search);
-    connect(worker, &FileSearchWorker::resultsReady, this, &MainWindow::searchFinished);
+    connect(worker, &FileSearchWorker::resultsReady, this, &MainWindow::onSearchFinished);
     workerThread.start();
     resultsTimer = new QTimer(this);
+    sortTimer = new QTimer(this);
     connect(resultsTimer, SIGNAL(timeout()), this, SLOT(onResultsTimerTick()));
+    connect(sortTimer, SIGNAL(timeout()), this, SLOT(onSortTimerTick()));
+    connect(resultsTable, SIGNAL(sortStarted()), this, SLOT(onSortStarted()));
+    connect(resultsTable, SIGNAL(sortFinished()), this, SLOT(onSortFinished()));
 }
 
 void MainWindow::onSearchClicked(SearchOptions options)
@@ -53,18 +57,27 @@ void MainWindow::onSearchClicked(SearchOptions options)
     resultsTimer->start(RESULTS_TIMER_INTERVAL_MS);
 }
 
+void MainWindow::onSortStarted()
+{
+    sortTimeMs = 0;
+    sortTimer->start(SORT_TIMER_INTERVAL_MS);
+}
 
-void MainWindow::searchFinished(const QVector<FileResult> &results)
+void MainWindow::onSearchFinished(const QVector<FileResult> &results)
 {
     resultsTable->setEnabled(true);
     resultsTimer->stop();
     searchBar->setEnabled(true);
     this->results = results;
     resultsTimeLabel->clear();
-    resultsCountLabel->setText(
-        QString("%1 results found in %2").
-            arg(QString::number(results.count()), resultsTimeString()));
+    resultsCountLabel->setText(resultsString());
     resultsTable->setItems(results);
+}
+
+void MainWindow::onSortFinished()
+{
+    sortTimer->stop();
+    resultsCountLabel->setText(resultsString());
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -142,6 +155,33 @@ void MainWindow::onResultsTimerTick()
     resultsTimeLabel->update();
 }
 
+void MainWindow::onSortTimerTick()
+{
+    sortTimeMs += SORT_TIMER_INTERVAL_MS;
+    int ellipsisCount = sortTimeMs / 1000 % 3;
+    QString sortingTxt;
+    switch (ellipsisCount)
+    {
+        case 0:
+        {
+            sortingTxt = "Sorting.";
+            break;
+        }
+        case 1:
+        {
+            sortingTxt = "Sorting..";
+            break;
+        }
+        case 2:
+        {
+            sortingTxt = "Sorting...";
+            break;
+        }
+    }
+    resultsCountLabel->setText(sortingTxt);
+    resultsCountLabel->update();
+}
+
 QString MainWindow::resultsTimeString()
 {
     if (resultsTimeMs == 0)
@@ -156,4 +196,10 @@ QString MainWindow::resultsTimeString()
     QString secondsStr = QString::number(seconds % 60).rightJustified(2, '0');
     QString msStr = QString::number(resultsTimeMs % 1000).rightJustified(3, '0');
     return QString("%1:%2:%3:%4").arg(hoursStr, minutesStr, secondsStr, msStr);
+}
+
+QString MainWindow::resultsString()
+{
+    return QString("%1 results found in %2").
+        arg(QString::number(results.count()), resultsTimeString());
 }

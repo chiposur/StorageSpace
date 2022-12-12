@@ -5,7 +5,7 @@ Native GUI for finding large files and cleaning up storage space. Allows for rec
 
 ## File Search Parameters
 
-| Parameter   s| Description                                              |
+| Parameters  | Description                                               |
 |------------:| ----------------------------------------------------------|
 | **Search text** | Contains search on relative file names                |
 | **Search regular expression** | Regular expression search on file names |

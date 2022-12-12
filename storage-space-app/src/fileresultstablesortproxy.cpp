@@ -55,7 +55,7 @@ void FileResultsTableSortProxy::superSort(int column, Qt::SortOrder order)
 
 void FileResultsTableSortProxy::setItems(const QVector<FileResult> &results)
 {
-    this->results = QVector<FileResult>(results);
+    this->results = results;
 }
 
 void FileResultsTableSortProxy::onSortingComplete()

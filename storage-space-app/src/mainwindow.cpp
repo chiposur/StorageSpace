@@ -13,9 +13,11 @@ MainWindow::MainWindow(QWidget *parent)
     qRegisterMetaType<SearchOptions>("SearchOptions");
     qRegisterMetaType<QVector<FileResult>>("QVector<FileResult>");
     qRegisterMetaType<Qt::SortOrder>("Qt::SortOrder");
+    qRegisterMetaType<QList<QPersistentModelIndex>>("QList<QPersistentModelIndex>");
+    qRegisterMetaType<QAbstractItemModel::LayoutChangeHint>("QAbstractItemModel::LayoutChangeHint");
     setWindowTitle("Storage Space");
     setWindowIcon(APP_ICON);
-    setMinimumSize(QSize(640, 480));
+    setMinimumSize(QSize(800, 600));
     setCentralWidget(new QWidget());
     mainLayout = new QVBoxLayout();
     centralWidget()->setLayout(mainLayout);
@@ -43,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(sortTimer, SIGNAL(timeout()), this, SLOT(onSortTimerTick()));
     connect(resultsTable, SIGNAL(sortStarted()), this, SLOT(onSortStarted()));
     connect(resultsTable, SIGNAL(sortFinished()), this, SLOT(onSortFinished()));
+    connect(resultsTable, SIGNAL(openInFolder(QFileInfo)), this, SLOT(onOpenInFolder(QFileInfo)));
+    connect(resultsTable, SIGNAL(deleteFile(QFile&,QDir)), this, SLOT(onDeleteFile(QFile&,QDir)));
 }
 
 void MainWindow::onSearchClicked(SearchOptions options)
@@ -86,7 +90,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     QMainWindow::closeEvent(event);
 }
 
-void MainWindow::deleteFile(QFile &file, QDir dir)
+void MainWindow::onDeleteFile(QFile &file, QDir dir)
 {
     QMessageBox msgBox;
     msgBox.setStandardButtons(QMessageBox::Ok);
@@ -99,6 +103,7 @@ void MainWindow::deleteFile(QFile &file, QDir dir)
             results.removeAt(index);
             resultsTable->setItems(results);
             dirToResultsIndex.remove(absoluteFilePath);
+            resultsTable->update();
         }
         msgBox.setText(QString("Successfully deleted \"%1\"").arg(file.fileName()));
         msgBox.setIcon(QMessageBox::Information);
@@ -112,7 +117,7 @@ void MainWindow::deleteFile(QFile &file, QDir dir)
     msgBox.exec();
 }
 
-void MainWindow::openInFolder(QFileInfo fileInfo)
+void MainWindow::onOpenInFolder(QFileInfo fileInfo)
 {
     QString folderPath = fileInfo.path();
     bool opened = QDesktopServices::openUrl(QUrl(QString("file:///%1").arg(folderPath), QUrl::TolerantMode));

@@ -1,6 +1,9 @@
 #ifndef FILERESULTSTABLE_H
 #define FILERESULTSTABLE_H
 
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
 #include <QTableView>
 
 #include "fileresult.h"
@@ -20,11 +23,15 @@ public:
 signals:
     void sortStarted();
     void sortFinished();
+    void openInFolder(QFileInfo fileInfo);
+    void deleteFile(QFile &file, QDir dir);
 
 private slots:
     void onSortingInProgress(bool inProgress);
+    void onCellClicked(const QModelIndex &);
 
 private:
+    QVector<FileResult> results;
     FileResultsTableModel *model;
     FileResultsTableSortProxy *sortProxy;
 };

@@ -29,8 +29,8 @@ private slots:
     void onSearchFinished(const QVector<FileResult> &results);
     void onSortFinished();
     void closeEvent(QCloseEvent *event);
-    void deleteFile(QFile &file, QDir dir);
-    void openInFolder(QFileInfo file);
+    void onDeleteFile(QFile &file, QDir dir);
+    void onOpenInFolder(QFileInfo file);
     void onResultsTimerTick();
     void onSortTimerTick();
 

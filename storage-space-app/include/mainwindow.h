@@ -51,6 +51,7 @@ private:
     static const int SORT_TIMER_INTERVAL_MS = 1000;
     int resultsTimeMs = 0;
     int sortTimeMs = 0;
+    bool searchRun = false;
     const QIcon APP_ICON = QIcon(QPixmap(":/images/app-icon.ico"));
 };
 #endif // MAINWINDOW_H

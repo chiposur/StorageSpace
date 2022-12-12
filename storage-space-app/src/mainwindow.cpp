@@ -69,6 +69,7 @@ void MainWindow::onSortStarted()
 
 void MainWindow::onSearchFinished(const QVector<FileResult> &results)
 {
+    searchRun = true;
     resultsTable->setEnabled(true);
     resultsTimer->stop();
     searchBar->setEnabled(true);
@@ -205,6 +206,10 @@ QString MainWindow::resultsTimeString()
 
 QString MainWindow::resultsString()
 {
+    if (!searchRun)
+    {
+        return "";
+    }
     return QString("%1 results found in %2").
         arg(QString::number(results.count()), resultsTimeString());
 }

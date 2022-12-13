@@ -39,7 +39,6 @@ private:
     QString resultsString();
 
     QVector<FileResult> results;
-    QMap<QString, int> dirToResultsIndex;
     QVBoxLayout *mainLayout;
     FileSearchBar *searchBar;
     QLabel *resultsCountLabel;

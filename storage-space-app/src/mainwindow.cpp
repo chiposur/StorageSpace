@@ -101,7 +101,7 @@ void MainWindow::onDeleteFile(QFile &file, QDir dir)
     msgBox.setText(warningMsg);
     msgBox.setIcon(QMessageBox::Icon::Warning);
     msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
-    if (msgBox.exec())
+    if (msgBox.exec() == QMessageBox::No)
     {
         return;
     }
@@ -109,12 +109,19 @@ void MainWindow::onDeleteFile(QFile &file, QDir dir)
     if (file.remove())
     {
         QString absoluteFilePath = dir.absoluteFilePath(file.fileName());
-        int index = dirToResultsIndex.value(absoluteFilePath, -1);
+        int index = -1;
+        for (int i = 0; i < results.count(); ++i)
+        {
+            if (results.at(i).path == absoluteFilePath)
+            {
+                index = i;
+                break;
+            }
+        }
         if (index > -1)
         {
             results.removeAt(index);
             resultsTable->setItems(results);
-            dirToResultsIndex.remove(absoluteFilePath);
             resultsTable->update();
         }
         msgBox.setWindowTitle("Delete successful");

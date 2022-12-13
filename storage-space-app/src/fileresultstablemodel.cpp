@@ -94,6 +94,7 @@ void FileResultsTableModel::setRows(const QVector<FileResult> &results)
 {
     this->results = results;
     emit layoutChanged();
+    emit dataChanged(index(0, 0), index(results.count() - 1, 3));
 }
 
 void FileResultsTableModel::setHeaders(const QStringList &headers)

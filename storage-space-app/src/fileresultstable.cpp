@@ -49,20 +49,21 @@ void FileResultsTable::setItems(const QVector<FileResult> &results)
 
 void FileResultsTable::onCellClicked(const QModelIndex &index)
 {
+    auto pathIndex = sortProxy->index(index.row(), 0);
+    QString path = sortProxy->data(pathIndex).toString();
     int column = index.column();
-    FileResult result = results.at(index.row());
     switch (column)
     {
         case 2:
         {
-            QFileInfo fileInfo = QFileInfo(result.path);
+            QFileInfo fileInfo = QFileInfo(path);
             emit openInFolder(fileInfo);
             break;
         }
         case 3:
         {
-            QFile file = QFile(result.path);
-            emit deleteFile(file, QDir(result.path));
+            QFile file = QFile(path);
+            emit deleteFile(file, QDir(path));
             break;
         }
         default:

@@ -94,6 +94,17 @@ void MainWindow::closeEvent(QCloseEvent *event)
 void MainWindow::onDeleteFile(QFile &file, QDir dir)
 {
     QMessageBox msgBox;
+    msgBox.setWindowTitle("Confirm deletion");
+    msgBox.setWindowIcon(APP_ICON);
+    QString warningMsg =
+        QString("This will permanently delete \"%1\". Are you sure you want to continue?").arg(file.fileName());
+    msgBox.setText(warningMsg);
+    msgBox.setIcon(QMessageBox::Icon::Warning);
+    msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    if (msgBox.exec())
+    {
+        return;
+    }
     msgBox.setStandardButtons(QMessageBox::Ok);
     if (file.remove())
     {
@@ -106,14 +117,15 @@ void MainWindow::onDeleteFile(QFile &file, QDir dir)
             dirToResultsIndex.remove(absoluteFilePath);
             resultsTable->update();
         }
+        msgBox.setWindowTitle("Delete successful");
         msgBox.setText(QString("Successfully deleted \"%1\"").arg(file.fileName()));
         msgBox.setIcon(QMessageBox::Information);
     }
     else
     {
+        msgBox.setWindowTitle("Delete failed");
         msgBox.setText(QString("Unable to delete \"%1\"").arg(file.fileName()));
         msgBox.setInformativeText("Please check that the file exists and is not used by another process.");
-        msgBox.setIcon(QMessageBox::Warning);
     }
     msgBox.exec();
 }
@@ -125,6 +137,8 @@ void MainWindow::onOpenInFolder(QFileInfo fileInfo)
     if (!opened)
     {
         QMessageBox msgBox;
+        msgBox.setWindowTitle("Open in folder failed");
+        msgBox.setWindowIcon(APP_ICON);
         msgBox.setText(QString("Unable to open \"%1\"").arg(folderPath));
         msgBox.setInformativeText("Please check that the folder exists and is able to be opened.");
         msgBox.setIcon(QMessageBox::Warning);

@@ -32,7 +32,7 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     connect(maxInput, SIGNAL(fileSizeChanged(qint64)), this, SLOT(onMaxInputChanged(qint64)));
     QLabel *minLabel = new QLabel(this);
     QLabel *maxLabel = new QLabel(this);
-    minLabel->setText("Min");
+    minLabel->setText("Min:");
     maxLabel->setText("Max:");
     isRecursiveCheck = new QCheckBox(this);
     isRecursiveCheck->setChecked(true);

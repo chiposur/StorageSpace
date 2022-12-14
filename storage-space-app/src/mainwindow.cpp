@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     qRegisterMetaType<SearchOptions>("SearchOptions");
+    qRegisterMetaType<FileResult>("FileResult");
     qRegisterMetaType<QVector<FileResult>>("QVector<FileResult>");
     qRegisterMetaType<Qt::SortOrder>("Qt::SortOrder");
     qRegisterMetaType<QList<QPersistentModelIndex>>("QList<QPersistentModelIndex>");
@@ -31,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     resultInfoRow->addStretch();
     resultInfoRow->addWidget(resultsTimeLabel);
     mainLayout->addLayout(resultInfoRow);
-    resultsTable = new FileResultsTable(this);
+    resultsTable = new FileResultsTable(&results, this);
     mainLayout->addWidget(resultsTable);
     FileSearchWorker *worker = new FileSearchWorker;
     worker->moveToThread(&workerThread);
@@ -52,8 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::onSearchClicked(SearchOptions options)
 {
     resultsTable->setDisabled(true);
-    results.clear();
-    resultsTable->setItems(results);
+    resultsTable->setRows(QVector<FileResult>());
     searchBar->setDisabled(true);
     resultsCountLabel->setText("Searching.");
     resultsTimeMs = 0;
@@ -70,19 +70,19 @@ void MainWindow::onSortStarted()
 void MainWindow::onSearchFinished(const QVector<FileResult> &results)
 {
     searchRun = true;
+    resultsTable->setRows(results);
     resultsTable->setEnabled(true);
     resultsTimer->stop();
     searchBar->setEnabled(true);
-    this->results = results;
     resultsTimeLabel->clear();
-    resultsCountLabel->setText(resultsString());
-    resultsTable->setItems(results);
+    resultsInfo = resultsString();
+    resultsCountLabel->setText(resultsInfo);
 }
 
 void MainWindow::onSortFinished()
 {
     sortTimer->stop();
-    resultsCountLabel->setText(resultsString());
+    resultsCountLabel->setText(resultsInfo);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -120,9 +120,7 @@ void MainWindow::onDeleteFile(QFile &file, QDir dir)
         }
         if (index > -1)
         {
-            results.removeAt(index);
-            resultsTable->setItems(results);
-            resultsTable->update();
+            resultsTable->deleteRow(index);
         }
         msgBox.setWindowTitle("Delete successful");
         msgBox.setText(QString("Successfully deleted \"%1\"").arg(file.fileName()));

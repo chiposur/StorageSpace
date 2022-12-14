@@ -15,10 +15,11 @@ class FileResultsTable : public QTableView
     Q_OBJECT
 
 public:
-    FileResultsTable(QWidget *parent = nullptr);
+    FileResultsTable(QVector<FileResult> *results, QWidget *parent = nullptr);
     ~FileResultsTable();
 
-    void setItems(const QVector<FileResult> &results);
+    void setRows(const QVector<FileResult> &results);
+    void deleteRow(int row);
 
 signals:
     void sortStarted();
@@ -31,7 +32,6 @@ private slots:
     void onCellClicked(const QModelIndex &);
 
 private:
-    QVector<FileResult> results;
     FileResultsTableModel *model;
     FileResultsTableSortProxy *sortProxy;
 };

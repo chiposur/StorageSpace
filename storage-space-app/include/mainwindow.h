@@ -46,6 +46,7 @@ private:
     FileResultsTable *resultsTable;
     QTimer *resultsTimer;
     QTimer *sortTimer;
+    QString resultsInfo = "";
     static const int RESULTS_TIMER_INTERVAL_MS = 1;
     static const int SORT_TIMER_INTERVAL_MS = 1000;
     int resultsTimeMs = 0;

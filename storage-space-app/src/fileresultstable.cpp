@@ -3,11 +3,11 @@
 #include "fileresultstable.h"
 #include "fileresultstabledelegate.h"
 
-FileResultsTable::FileResultsTable(QWidget *parent)
+FileResultsTable::FileResultsTable(QVector<FileResult> *results, QWidget *parent)
     : QTableView(parent)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
-    model = new FileResultsTableModel();
+    model = new FileResultsTableModel(results);
     QStringList headers;
     headers << "File Path" << "Size" << "" << "";
     model->setHeaders(headers);
@@ -40,11 +40,14 @@ void FileResultsTable::onSortingInProgress(bool inProgress)
     }
 }
 
-void FileResultsTable::setItems(const QVector<FileResult> &results)
+void FileResultsTable::setRows(const QVector<FileResult> &results)
 {
-    this->results = results;
-    sortProxy->setItems(results);
     model->setRows(results);
+}
+
+void FileResultsTable::deleteRow(int row)
+{
+    model->removeRow(row);
 }
 
 void FileResultsTable::onCellClicked(const QModelIndex &index)

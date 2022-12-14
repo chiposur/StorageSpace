@@ -19,8 +19,6 @@ public:
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
     void superSort(int column, Qt::SortOrder order = Qt::AscendingOrder);
 
-    void setItems(const QVector<FileResult> &results);
-
 signals:
     void sortingInProgress(bool inProgress);
     void startSort(FileResultsTableSortProxy *sortProxy, int column, Qt::SortOrder order);
@@ -29,7 +27,6 @@ private slots:
     void onSortingComplete();
 
 private:
-    QVector<FileResult> results;
     bool sorting = false;
 };
 

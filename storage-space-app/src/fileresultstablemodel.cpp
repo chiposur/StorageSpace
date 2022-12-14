@@ -1,7 +1,8 @@
 #include "fileresultstablemodel.h"
 
-FileResultsTableModel::FileResultsTableModel()
+FileResultsTableModel::FileResultsTableModel(QVector<FileResult> *results)
 {
+    this->results = results;
 }
 
 FileResultsTableModel::~FileResultsTableModel()
@@ -11,7 +12,7 @@ FileResultsTableModel::~FileResultsTableModel()
 int FileResultsTableModel::rowCount(const QModelIndex &index) const
 {
     Q_UNUSED(index)
-    return results.count();
+    return results->count();
 }
 
 int FileResultsTableModel::columnCount(const QModelIndex &index) const
@@ -24,7 +25,7 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole)
     {
-        FileResult result = results.at(index.row());
+        FileResult result = results->at(index.row());
         switch (index.column())
         {
             case 0:
@@ -66,6 +67,11 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
             }
         }
     }
+    else if (role == Qt::UserRole)
+    {
+        FileResult result = results->at(index.row());
+        return QVariant::fromValue(result);
+    }
     return QVariant();
 }
 
@@ -92,9 +98,43 @@ Qt::ItemFlags FileResultsTableModel::flags(const QModelIndex &index) const
 
 void FileResultsTableModel::setRows(const QVector<FileResult> &results)
 {
-    this->results = results;
+    this->results->clear();
+    this->results->append(results);
     emit layoutChanged();
-    emit dataChanged(index(0, 0), index(results.count() - 1, 3));
+}
+
+bool FileResultsTableModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    if (results->empty())
+    {
+        return false;
+    }
+    int lastRow = row + count - 1;
+    beginRemoveRows(parent, row, lastRow);
+    for (int i = row; i < row + count; ++i)
+    {
+        results->removeAt(row);
+    }
+    emit dataChanged(index(row, 0), index(lastRow, NUM_COLS), { Qt::DisplayRole });
+    endRemoveRows();
+    return true;
+}
+
+bool FileResultsTableModel::removeRow(int row, const QModelIndex &parent)
+{
+    return removeRows(row, 1, parent);
+}
+
+bool FileResultsTableModel::insertRows(int row, int count, const QModelIndex &parent)
+{
+    Q_UNUSED(parent);
+    emit dataChanged(index(row, 0), index(row + count - 1, NUM_COLS), { Qt::DisplayRole });
+    return true;
+}
+
+bool FileResultsTableModel::insertRow(int row, const QModelIndex &parent)
+{
+    return insertRows(row, 1, parent);
 }
 
 void FileResultsTableModel::setHeaders(const QStringList &headers)

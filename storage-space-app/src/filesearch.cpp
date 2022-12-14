@@ -10,7 +10,9 @@ FileSearch::FileSearch(SearchOptions options, QObject *parent)
 
 const QVector<FileResult> &FileSearch::run()
 {
-    searchFiles(options.directory);
+    QDir dir = options.directory;
+    dir.refresh();
+    searchFiles(dir);
     return results;
 }
 

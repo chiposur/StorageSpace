@@ -1,3 +1,4 @@
+#include "fileresult.h"
 #include "fileresultstablesortproxy.h"
 
 FileResultsTableSortProxy::FileResultsTableSortProxy()
@@ -19,8 +20,8 @@ bool FileResultsTableSortProxy::lessThan(
     const QModelIndex &source_right) const
 {
     int column = source_left.column();
-    FileResult leftResult = results.at(source_left.row());
-    FileResult rightResult = results.at(source_right.row());
+    FileResult leftResult = sourceModel()->data(source_left, Qt::UserRole).value<FileResult>();
+    FileResult rightResult = sourceModel()->data(source_right, Qt::UserRole).value<FileResult>();
     switch (column)
     {
         case 0:
@@ -51,11 +52,6 @@ void FileResultsTableSortProxy::sort(int column, Qt::SortOrder order)
 void FileResultsTableSortProxy::superSort(int column, Qt::SortOrder order)
 {
     QSortFilterProxyModel::sort(column, order);
-}
-
-void FileResultsTableSortProxy::setItems(const QVector<FileResult> &results)
-{
-    this->results = results;
 }
 
 void FileResultsTableSortProxy::onSortingComplete()

@@ -1,4 +1,8 @@
+#include <QAction>
+#include <QDate>
 #include <QDesktopServices>
+#include <QMenu>
+#include <QMenuBar>
 #include <QMessageBox>
 #include <QMetaType>
 #include <QUrl>
@@ -19,6 +23,81 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Storage Space");
     setWindowIcon(APP_ICON);
     setMinimumSize(QSize(800, 600));
+    createMenuBar();
+    createCentralWidget();
+    FileSearchWorker *worker = new FileSearchWorker;
+    worker->moveToThread(&workerThread);
+    connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
+    connect(this, &MainWindow::startSearch, worker, &FileSearchWorker::search);
+    connect(worker, &FileSearchWorker::resultsReady, this, &MainWindow::onSearchFinished);
+    workerThread.start();
+    resultsTimer = new QTimer(this);
+    sortTimer = new QTimer(this);
+    connect(resultsTimer, SIGNAL(timeout()), this, SLOT(onResultsTimerTick()));
+    connect(sortTimer, SIGNAL(timeout()), this, SLOT(onSortTimerTick()));
+    connect(resultsTable, SIGNAL(sortStarted()), this, SLOT(onSortStarted()));
+    connect(resultsTable, SIGNAL(sortFinished()), this, SLOT(onSortFinished()));
+    connect(resultsTable, SIGNAL(openInFolder(QFileInfo)), this, SLOT(onOpenInFolder(QFileInfo)));
+    connect(resultsTable, SIGNAL(deleteFile(QFile&,QDir)), this, SLOT(onDeleteFile(QFile&,QDir)));
+}
+
+void MainWindow::createMenuBar()
+{
+    QMenuBar *menuBar = new QMenuBar(this);
+    QMenu *fileMenu = new QMenu("File", menuBar);
+    menuBar->addMenu(fileMenu);
+    QAction *settingsAction = new QAction("Settings", fileMenu);
+    QAction *exitAction = new QAction("Exit", fileMenu);
+    connect(settingsAction, SIGNAL(triggered()), this, SLOT(onSettingsActionTriggered()));
+    connect(exitAction, SIGNAL(triggered()), this, SLOT(onExitActionTriggered()));
+    fileMenu->addAction(settingsAction);
+    fileMenu->addAction(exitAction);
+    QMenu *helpMenu = new QMenu("Help", menuBar);
+    QAction *aboutAction = new QAction("About", helpMenu);
+    connect(aboutAction, SIGNAL(triggered()), this, SLOT(onAboutActionTriggered()));
+    helpMenu->addAction(aboutAction);
+    menuBar->addMenu(helpMenu);
+    setMenuBar(menuBar);
+}
+
+void MainWindow::onSettingsActionTriggered()
+{
+
+}
+
+void MainWindow::onExitActionTriggered()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Exit Storage Space");
+    msgBox.setWindowIcon(APP_ICON);
+    QString warningMsg = "Are you sure you want to exit?";
+    msgBox.setText(warningMsg);
+    msgBox.setIcon(QMessageBox::Icon::Warning);
+    msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::Yes);
+    if (msgBox.exec() == QMessageBox::Yes)
+    {
+        close();
+    }
+}
+
+void MainWindow::onAboutActionTriggered()
+{
+    QMessageBox msgBox;
+    msgBox.setWindowIcon(APP_ICON);
+    msgBox.setWindowTitle("About - Storage Space");
+    QString text = QString("Storage Space\nCopyright (c) %1 Chip Osur").arg(QDate::currentDate().year());
+    msgBox.setText(text);
+    QString informativeTxt =
+        "Native GUI for finding large files and cleaning up storage space. "
+        "Allows for recursively searching directories for files that match the specified search criteria, "
+        "opening up results in folder and deleting from disk.";
+    msgBox.setInformativeText(informativeTxt);
+    msgBox.exec();
+}
+
+void MainWindow::createCentralWidget()
+{
     setCentralWidget(new QWidget());
     mainLayout = new QVBoxLayout();
     centralWidget()->setLayout(mainLayout);
@@ -34,20 +113,6 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->addLayout(resultInfoRow);
     resultsTable = new FileResultsTable(&results, this);
     mainLayout->addWidget(resultsTable);
-    FileSearchWorker *worker = new FileSearchWorker;
-    worker->moveToThread(&workerThread);
-    connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);
-    connect(this, &MainWindow::startSearch, worker, &FileSearchWorker::search);
-    connect(worker, &FileSearchWorker::resultsReady, this, &MainWindow::onSearchFinished);
-    workerThread.start();
-    resultsTimer = new QTimer(this);
-    sortTimer = new QTimer(this);
-    connect(resultsTimer, SIGNAL(timeout()), this, SLOT(onResultsTimerTick()));
-    connect(sortTimer, SIGNAL(timeout()), this, SLOT(onSortTimerTick()));
-    connect(resultsTable, SIGNAL(sortStarted()), this, SLOT(onSortStarted()));
-    connect(resultsTable, SIGNAL(sortFinished()), this, SLOT(onSortFinished()));
-    connect(resultsTable, SIGNAL(openInFolder(QFileInfo)), this, SLOT(onOpenInFolder(QFileInfo)));
-    connect(resultsTable, SIGNAL(deleteFile(QFile&,QDir)), this, SLOT(onDeleteFile(QFile&,QDir)));
 }
 
 void MainWindow::onSearchClicked(SearchOptions options)

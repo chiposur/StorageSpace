@@ -33,8 +33,13 @@ private slots:
     void onOpenInFolder(QFileInfo file);
     void onResultsTimerTick();
     void onSortTimerTick();
+    void onSettingsActionTriggered();
+    void onExitActionTriggered();
+    void onAboutActionTriggered();
 
 private:
+    void createMenuBar();
+    void createCentralWidget();
     QString resultsTimeString();
     QString resultsString();
 

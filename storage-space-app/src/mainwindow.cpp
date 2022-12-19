@@ -10,6 +10,9 @@
 
 #include "filesearchworker.h"
 #include "mainwindow.h"
+#include "settings.h"
+#include "settingsdialog.h"
+#include "settingsmanager.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,6 +26,11 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Storage Space");
     setWindowIcon(APP_ICON);
     setMinimumSize(QSize(800, 600));
+    SettingsManager::getInstance()->readSettings();
+    if (Settings::getSaveWindowGeometry())
+    {
+        restoreGeometry(SettingsManager::getInstance()->readGeometry());
+    }
     createMenuBar();
     createCentralWidget();
     FileSearchWorker *worker = new FileSearchWorker;
@@ -62,7 +70,11 @@ void MainWindow::createMenuBar()
 
 void MainWindow::onSettingsActionTriggered()
 {
-
+    SettingsDialog dialog;
+    if (dialog.exec() == QDialog::Accepted)
+    {
+        SettingsManager::getInstance()->saveSettings();
+    }
 }
 
 void MainWindow::onExitActionTriggered()
@@ -153,6 +165,11 @@ void MainWindow::onSortFinished()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     workerThread.exit();
+    if (Settings::getSaveWindowGeometry())
+    {
+        QByteArray geometry = saveGeometry();
+        SettingsManager::getInstance()->saveGeometry(geometry);
+    }
     QMainWindow::closeEvent(event);
 }
 

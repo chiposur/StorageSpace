@@ -15,7 +15,10 @@ SOURCES += \
     src/filesearchworker.cpp \
     src/filesizeinput.cpp \
     src/mainwindow.cpp \
-    src/searchoptions.cpp
+    src/searchoptions.cpp \
+    src/settings.cpp \
+    src/settingsdialog.cpp \
+    src/settingsmanager.cpp
 
 HEADERS += \
     include/fileresult.h \
@@ -29,7 +32,10 @@ HEADERS += \
     include/filesearchworker.h \
     include/filesizeinput.h \
     include/mainwindow.h \
-    include/searchoptions.h
+    include/searchoptions.h \
+    include/settings.h \
+    include/settingsdialog.h \
+    include/settingsmanager.h
 
 INCLUDEPATH += \
     include/

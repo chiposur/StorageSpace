@@ -1,7 +1,7 @@
-#include <QHeaderView>
-
 #include "fileresultstable.h"
 #include "fileresultstabledelegate.h"
+
+#include <QHeaderView>
 
 FileResultsTable::FileResultsTable(QVector<FileResult> *results, QWidget *parent)
     : QTableView(parent)

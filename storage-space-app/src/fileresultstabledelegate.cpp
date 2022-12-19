@@ -1,9 +1,9 @@
+#include "fileresultstabledelegate.h"
+
 #include <QApplication>
 #include <QPainter>
 #include <QRect>
 #include <QStyleOptionButton>
-
-#include "fileresultstabledelegate.h"
 
 void FileResultsTableDelegate::paint(
     QPainter *painter,

@@ -1,3 +1,9 @@
+#include "filesearchworker.h"
+#include "mainwindow.h"
+#include "settings.h"
+#include "settingsdialog.h"
+#include "settingsmanager.h"
+
 #include <QAction>
 #include <QDate>
 #include <QDesktopServices>
@@ -7,12 +13,6 @@
 #include <QMetaType>
 #include <QUrl>
 #include <QVBoxLayout>
-
-#include "filesearchworker.h"
-#include "mainwindow.h"
-#include "settings.h"
-#include "settingsdialog.h"
-#include "settingsmanager.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

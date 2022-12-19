@@ -1,7 +1,7 @@
+#include "filesizeinput.h"
+
 #include <float.h>
 #include <QHBoxLayout>
-
-#include "filesizeinput.h"
 
 FileSizeInput::FileSizeInput(QWidget *parent)
     : QWidget(parent)

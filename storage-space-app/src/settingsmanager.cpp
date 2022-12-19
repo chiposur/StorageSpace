@@ -1,8 +1,8 @@
-#include <QCoreApplication>
-#include <QSettings>
-
 #include "settings.h"
 #include "settingsmanager.h"
+
+#include <QCoreApplication>
+#include <QSettings>
 
 SettingsManager::SettingsManager()
 {

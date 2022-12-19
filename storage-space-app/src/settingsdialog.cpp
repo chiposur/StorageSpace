@@ -1,8 +1,8 @@
-#include <QPushButton>
-#include <QVBoxLayout>
-
 #include "settings.h"
 #include "settingsdialog.h"
+
+#include <QPushButton>
+#include <QVBoxLayout>
 
 SettingsDialog::SettingsDialog(QWidget *parent)
     : QDialog(parent)

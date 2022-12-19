@@ -1,6 +1,6 @@
-#include <QRegularExpression>
-
 #include "filesearch.h"
+
+#include <QRegularExpression>
 
 FileSearch::FileSearch(SearchOptions options, QObject *parent)
     : QObject(parent)

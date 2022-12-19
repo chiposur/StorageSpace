@@ -1,8 +1,8 @@
+#include "filesearchbar.h"
+
 #include <QFileDialog>
 #include <QLabel>
 #include <QVBoxLayout>
-
-#include "filesearchbar.h"
 
 FileSearchBar::FileSearchBar(QWidget *parent) :
     QWidget(parent)

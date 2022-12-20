@@ -119,7 +119,8 @@ int main(int argc, char *argv[])
     {
         const FileResult result = results.at(i);
         QString formattedResult =
-            QString("%1 - %2").arg(result.path, result.getFormattedFileSize());
+            QString("%1 - %2\n").arg(result.path, result.getFormattedFileSize());
         std::cout << formattedResult.toStdString();
     }
+    return 0;
 }

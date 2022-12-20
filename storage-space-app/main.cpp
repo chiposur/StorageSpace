@@ -118,6 +118,9 @@ int main(int argc, char *argv[])
     QVector<FileResult> results = fs.run();
     for (int i = 0; i < results.count(); ++i)
     {
-        std::cout << results[i].path.toStdString();
+        const FileResult result = results.at(i);
+        QString formattedResult =
+            QString("%1 - %2").arg(result.path, result.getFormattedFileSize());
+        std::cout << formattedResult.toStdString();
     }
 }

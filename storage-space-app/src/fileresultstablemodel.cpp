@@ -35,30 +35,7 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
             }
             case 1:
             {
-                double bytes = static_cast<double>(result.fileSizeInBytes);
-                QString size;
-                QString unit;
-                if (bytes < 1e6)
-                {
-                    size = QString::number(bytes / 1e3, 'c', 3);
-                    unit = "KB";
-                }
-                else if (bytes < 1e9)
-                {
-                    size = QString::number(bytes / 1e6, 'c', 3);
-                    unit = "MB";
-                }
-                else if (bytes < 1e12)
-                {
-                    size = QString::number(bytes / 1e9, 'c', 3);
-                    unit = "GB";
-                }
-                else
-                {
-                    size = QString::number(bytes / 1e12, 'c', 3);
-                    unit = "TB";
-                }
-                return QString("%1 %2").arg(size, unit);
+                return result.getFormattedFileSize();
                 break;
             }
             default:

@@ -11,6 +11,8 @@ public:
     FileResult &operator=(const FileResult &fileResult);
     bool operator==(const FileResult &fileResult);
 
+    QString getFormattedFileSize() const;
+
     QString path;
     qint64 fileSizeInBytes;
 };

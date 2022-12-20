@@ -3,6 +3,8 @@
 
 Native GUI for finding large files and cleaning up storage space. Allows for recursively searching directories for files that match the specified search criteria, opening up results in folder and deleting from disk.
 
+This program can also be run as a CLI, providing the file search parameters as command line arguments and outputing a list of formatted file results.
+
 ## File Search Parameters
 
 | Parameters  | Description                                               |
@@ -13,6 +15,17 @@ Native GUI for finding large files and cleaning up storage space. Allows for rec
 | **Max** | Max file size in bytes                                        |
 | **Recursive** | Recursive search on nested folders                      |
 | **Search directory** | Search directory to start from                   |
+
+## Command Line Arguments
+
+| Arguments   | Description                                               |
+|------------:| ----------------------------------------------------------|
+| **-d, --dir** | Search directory to start from                          |
+| **--search-text** | Contains search on relative file names              |
+| **--search-regex** | Regular expression search on file names            |
+| **-r** | Recursive search on nested folders                             |
+| **-min** | Min file size in bytes                                       |
+| **-max** | Max file size in bytes                                       |
 
 ## Build
 

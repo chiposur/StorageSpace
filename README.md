@@ -5,6 +5,14 @@ Native GUI for finding large files and cleaning up storage space. Allows for rec
 
 This program can also be run as a CLI, providing the file search parameters as command line arguments and outputing a list of formatted file results.
 
+Launch as GUI by double clicking or running on the command line without arguments:
+
+`storage-space-app`
+
+Run as CLI by specifying one or more arguments:
+
+`storage-space-app --dir /path/to/dir --sort-by size --desc`
+
 ## File Search Parameters
 
 | Parameters  | Description                                               |
@@ -33,3 +41,5 @@ This program can also be run as a CLI, providing the file search parameters as c
 ## Build
 
 Tested on Qt >= 5.15.2 and compiled with MSVC 2019 64 bit
+
+Distribution can be handled with the [windeployqt tool](https://doc.qt.io/qt-6/windows-deployment.html#the-windows-deployment-tool) on Windows, [macdeployqt](https://doc.qt.io/qt-6/macos-deployment.html) on Mac, or [manually](https://doc.qt.io/qt-6/linux-deployment.html) on Linux/X11.

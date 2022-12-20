@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     if (argc <= 1)
     {
-
         MainWindow w;
         w.show();
         return a.exec();
@@ -88,7 +87,7 @@ int main(int argc, char *argv[])
     {
         bool ok;
         qint64 minBytes = parser.value(minOption).toLongLong(&ok);
-        if (ok)
+        if (ok && minBytes >= 0)
         {
             options.minFileSizeBytes = minBytes;
         }
@@ -103,7 +102,7 @@ int main(int argc, char *argv[])
     {
         bool ok;
         qint64 maxBytes = parser.value(maxOption).toLongLong(&ok);
-        if (ok)
+        if (ok && maxBytes >= 0)
         {
             options.maxFileSizeBytes = maxBytes;
         }

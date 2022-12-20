@@ -93,8 +93,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            std::cout << "Min file size must be a valid 64 bit integer >= 0.";
-            parser.showHelp();
+            std::cout << "Min file size must be a valid 64 bit integer >= 0.\n";
             return 0;
         }
     }
@@ -108,8 +107,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            std::cout << "Max file size must be a valid 64 bit integer >= 0.";
-            parser.showHelp();
+            std::cout << "Max file size must be a valid 64 bit integer >= 0.\n";
             return 0;
         }
     }

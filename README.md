@@ -24,8 +24,11 @@ This program can also be run as a CLI, providing the file search parameters as c
 | **--search-text** | Contains search on relative file names              |
 | **--search-regex** | Regular expression search on file names            |
 | **-r** | Recursive search on nested folders                             |
-| **-min** | Min file size in bytes                                       |
-| **-max** | Max file size in bytes                                       |
+| **--min** | Min file size in bytes                                      |
+| **--max** | Max file size in bytes                                      |
+| **--sort-by** | Sort by [path, size]                                    |
+| **--asc** | If sort-by is specified, sort ascending (default).          |
+| **--desc** | If sort-by is specified, sort descending.                  |
 
 ## Build
 

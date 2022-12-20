@@ -289,7 +289,7 @@ void MainWindow::onSortTimerTick()
     resultsCountLabel->update();
 }
 
-QString MainWindow::resultsTimeString()
+QString MainWindow::resultsTimeString() const
 {
     if (resultsTimeMs == 0)
     {
@@ -305,7 +305,7 @@ QString MainWindow::resultsTimeString()
     return QString("%1:%2:%3:%4").arg(hoursStr, minutesStr, secondsStr, msStr);
 }
 
-QString MainWindow::resultsString()
+QString MainWindow::resultsString() const
 {
     if (!searchRun)
     {

@@ -40,8 +40,8 @@ private slots:
 private:
     void createMenuBar();
     void createCentralWidget();
-    QString resultsTimeString();
-    QString resultsString();
+    QString resultsTimeString() const;
+    QString resultsString() const;
 
     QVector<FileResult> results;
     QVBoxLayout *mainLayout;

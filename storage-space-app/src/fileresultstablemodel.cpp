@@ -47,7 +47,23 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
     else if (role == Qt::UserRole)
     {
         FileResult result = results->at(index.row());
-        return QVariant::fromValue(result);
+        switch (index.column())
+        {
+            case 0:
+            {
+                return result.path;
+                break;
+            }
+            case 1:
+            {
+                return result.fileSizeInBytes;
+                break;
+            }
+            default:
+            {
+                return QVariant();
+            }
+        }
     }
     return QVariant();
 }

@@ -17,6 +17,8 @@ public:
 
     bool lessThan(const QModelIndex &source_left, const QModelIndex &source_right) const;
     void sort(int column, Qt::SortOrder order = Qt::AscendingOrder);
+    QModelIndex parent(const QModelIndex &index) const;
+
     void superSort(int column, Qt::SortOrder order = Qt::AscendingOrder);
 
 signals:

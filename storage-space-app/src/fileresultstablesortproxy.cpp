@@ -20,23 +20,33 @@ bool FileResultsTableSortProxy::lessThan(
     const QModelIndex &source_right) const
 {
     int column = source_left.column();
-    FileResult leftResult = sourceModel()->data(source_left, Qt::UserRole).value<FileResult>();
-    FileResult rightResult = sourceModel()->data(source_right, Qt::UserRole).value<FileResult>();
+    auto left = sourceModel()->data(source_left, Qt::UserRole);
+    auto right = sourceModel()->data(source_right, Qt::UserRole);
     switch (column)
     {
         case 0:
         {
-            return leftResult.path < rightResult.path;
+            auto leftPath = left.toString();
+            auto rightPath = right.toString();
+            return leftPath < rightPath;
         }
         case 1:
         {
-            return leftResult.fileSizeInBytes < rightResult.fileSizeInBytes;
+            auto leftSize = left.toLongLong();
+            auto rightSize = right.toLongLong();
+            return leftSize < rightSize;
         }
         default:
         {
             return false;
         }
     }
+}
+
+QModelIndex FileResultsTableSortProxy::parent(const QModelIndex &index) const
+{
+    Q_UNUSED(index)
+    return QModelIndex();
 }
 
 void FileResultsTableSortProxy::sort(int column, Qt::SortOrder order)

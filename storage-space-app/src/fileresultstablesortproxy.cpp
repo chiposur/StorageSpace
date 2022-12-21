@@ -4,6 +4,7 @@
 
 FileResultsTableSortProxy::FileResultsTableSortProxy()
 {
+    setDynamicSortFilter(false);
     auto *worker = new FileResultsTableSortProxyWorker;
     worker->moveToThread(&workerThread);
     connect(&workerThread, &QThread::finished, worker, &QObject::deleteLater);

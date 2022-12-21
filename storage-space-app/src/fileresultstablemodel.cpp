@@ -92,6 +92,7 @@ Qt::ItemFlags FileResultsTableModel::flags(const QModelIndex &index) const
 
 void FileResultsTableModel::setRows(const QVector<FileResult> &results)
 {
+    emit layoutAboutToBeChanged();
     this->results->clear();
     this->results->append(results);
     emit layoutChanged();

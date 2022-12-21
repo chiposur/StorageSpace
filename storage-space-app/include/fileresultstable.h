@@ -15,6 +15,9 @@ class FileResultsTable : public QTableView
     Q_OBJECT
 
 public:
+    static const int PATH_COL = 0;
+    static const int SIZE_COL = 1;
+
     FileResultsTable(QVector<FileResult> *results, QWidget *parent = nullptr);
     ~FileResultsTable();
 

@@ -1,3 +1,4 @@
+#include "fileresultstable.h"
 #include "fileresultstablemodel.h"
 
 FileResultsTableModel::FileResultsTableModel(QVector<FileResult> *results)
@@ -28,12 +29,12 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
         FileResult result = results->at(index.row());
         switch (index.column())
         {
-            case 0:
+            case FileResultsTable::PATH_COL:
             {
                 return result.path;
                 break;
             }
-            case 1:
+            case FileResultsTable::SIZE_COL:
             {
                 return result.getFormattedFileSize();
                 break;
@@ -49,12 +50,12 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
         FileResult result = results->at(index.row());
         switch (index.column())
         {
-            case 0:
+            case FileResultsTable::PATH_COL:
             {
                 return result.path;
                 break;
             }
-            case 1:
+            case FileResultsTable::SIZE_COL:
             {
                 return result.fileSizeInBytes;
                 break;

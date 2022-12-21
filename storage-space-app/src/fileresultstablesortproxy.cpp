@@ -1,4 +1,5 @@
 #include "fileresult.h"
+#include "fileresultstable.h"
 #include "fileresultstablesortproxy.h"
 
 FileResultsTableSortProxy::FileResultsTableSortProxy()
@@ -24,13 +25,13 @@ bool FileResultsTableSortProxy::lessThan(
     auto right = sourceModel()->data(source_right, Qt::UserRole);
     switch (column)
     {
-        case 0:
+        case FileResultsTable::PATH_COL:
         {
             auto leftPath = left.toString();
             auto rightPath = right.toString();
             return leftPath < rightPath;
         }
-        case 1:
+        case FileResultsTable::SIZE_COL:
         {
             auto leftSize = left.toLongLong();
             auto rightSize = right.toLongLong();

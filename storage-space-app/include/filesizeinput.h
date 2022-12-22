@@ -16,6 +16,7 @@ signals:
 
 private slots:
     void onFileSizeChanged(int index);
+    void onValueChanged(double val);
 
 private:
     QDoubleSpinBox *fileSizeSpinBox;

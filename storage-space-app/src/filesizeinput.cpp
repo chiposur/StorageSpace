@@ -13,7 +13,7 @@ FileSizeInput::FileSizeInput(QWidget *parent)
     fileSizeSpinBox->setValue(-1);
     unitComboBox = new QComboBox(this);
     connect(unitComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onFileSizeChanged(int)));
-    unitComboBox->setFixedWidth(42);
+    unitComboBox->setFixedWidth(46);
     QStringList units;
     units << "KB" << "MB" << "GB" << "TB";
     unitComboBox->addItems(units);

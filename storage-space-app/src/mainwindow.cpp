@@ -293,7 +293,7 @@ QString MainWindow::resultsTimeString() const
 {
     if (resultsTimeMs == 0)
     {
-        return QString("<%1ms").arg(QString::number(RESULTS_TIMER_INTERVAL_MS).rightJustified(3, '0'));
+        return QString("<%1ms").arg(QString::number(RESULTS_TIMER_INTERVAL_MS));
     }
     int hours = resultsTimeMs / (1000 * 60 * 60);
     int minutes = resultsTimeMs / (1000 * 60);

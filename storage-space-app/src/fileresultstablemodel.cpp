@@ -26,7 +26,7 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole)
     {
-        FileResult result = results->at(index.row());
+        const FileResult &result = results->at(index.row());
         switch (index.column())
         {
             case FileResultsTable::PATH_COL:
@@ -47,7 +47,7 @@ QVariant FileResultsTableModel::data(const QModelIndex &index, int role) const
     }
     else if (role == Qt::UserRole)
     {
-        FileResult result = results->at(index.row());
+        const FileResult &result = results->at(index.row());
         switch (index.column())
         {
             case FileResultsTable::PATH_COL:

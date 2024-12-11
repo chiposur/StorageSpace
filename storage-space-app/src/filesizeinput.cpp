@@ -2,6 +2,7 @@
 
 #include <float.h>
 #include <QHBoxLayout>
+#include <QtSystemDetection>
 
 FileSizeInput::FileSizeInput(QWidget *parent)
     : QWidget(parent)
@@ -14,7 +15,12 @@ FileSizeInput::FileSizeInput(QWidget *parent)
     connect(fileSizeSpinBox, SIGNAL(valueChanged(double)), this, SLOT(onValueChanged(double)));
     unitComboBox = new QComboBox(this);
     connect(unitComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(onFileSizeChanged(int)));
-    unitComboBox->setFixedWidth(46);
+#if (defined (Q_OS_MAC))
+    int comboWidth = 62;
+#else
+    int comboWidth = 46;
+#endif
+    unitComboBox->setFixedWidth(comboWidth);
     QStringList units;
     units << "KB" << "MB" << "GB" << "TB";
     unitComboBox->addItems(units);

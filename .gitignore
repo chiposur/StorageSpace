@@ -34,6 +34,7 @@ Thumbs.db
 debug/
 release/
 .tmp.drivedownload/
+build/
 
 # Prerequisites
 *.d
@@ -100,3 +101,4 @@ release/
 
 # Python byte code
 *.pyc
+

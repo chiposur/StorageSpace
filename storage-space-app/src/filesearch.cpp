@@ -60,5 +60,9 @@ bool FileSearch::isMatch(QFileInfo fileInfo)
     {
         return false;
     }
-    return fileName.contains(fileNameContainsTxt);
+    Qt::CaseSensitivity caseSensitivity =
+        options.isCaseSensitive ?
+            Qt::CaseSensitive :
+            Qt::CaseInsensitive;
+    return fileName.contains(fileNameContainsTxt, caseSensitivity);
 }

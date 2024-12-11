@@ -27,6 +27,7 @@ private slots:
     void onMinInputChanged(qint64 minSize);
     void onMaxInputChanged(qint64 maxSize);
     void onRecursiveChecked(bool checked);
+    void onCaseSensitiveChecked(bool checked);
     void onSearchDirChanged(const QString &text);
     void onSearchClicked();
     void onFileDlgBtnClicked();
@@ -38,6 +39,7 @@ private:
     FileSizeInput *minInput;
     FileSizeInput *maxInput;
     QCheckBox *isRecursiveCheck;
+    QCheckBox *isCaseSensitiveCheck;
     QPushButton *searchBtn;
     QPushButton *fileDlgBtn;
 };

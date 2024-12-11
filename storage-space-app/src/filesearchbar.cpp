@@ -39,12 +39,20 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     QLabel *isRecursiveLabel = new QLabel(this);
     isRecursiveLabel->setText("Recursive:");
     connect(isRecursiveCheck, SIGNAL(toggled(bool)), this, SLOT(onRecursiveChecked(bool)));
+    isCaseSensitiveCheck = new QCheckBox(this);
+    isCaseSensitiveCheck->setChecked(false);
+    QLabel *isCaseSensitiveLabel = new QLabel(this);
+    isCaseSensitiveLabel->setText("Match case:");
+    connect(isCaseSensitiveCheck, SIGNAL(toggled(bool)), this, SLOT(onCaseSensitiveChecked(bool)));
     secondRow->addWidget(minLabel);
     secondRow->addWidget(minInput);
     secondRow->addWidget(maxLabel);
     secondRow->addWidget(maxInput);
     secondRow->addWidget(isRecursiveLabel);
     secondRow->addWidget(isRecursiveCheck);
+    secondRow->addSpacing(12);
+    secondRow->addWidget(isCaseSensitiveLabel);
+    secondRow->addWidget(isCaseSensitiveCheck);
     secondRow->addStretch();
     QHBoxLayout *thirdRow = new QHBoxLayout();
     mainLayout->addLayout(thirdRow);
@@ -86,6 +94,11 @@ void FileSearchBar::onMaxInputChanged(qint64 maxSize)
 void FileSearchBar::onRecursiveChecked(bool checked)
 {
     options.isRecursive = checked;
+}
+
+void FileSearchBar::onCaseSensitiveChecked(bool checked)
+{
+    options.isCaseSensitive = checked;
 }
 
 void FileSearchBar::onSearchDirChanged(const QString &text)

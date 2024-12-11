@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QRect>
 #include <QStyleOptionButton>
+#include <QtSystemDetection>
 
 void FileResultsTableDelegate::paint(
     QPainter *painter,
@@ -26,7 +27,11 @@ void FileResultsTableDelegate::paint(
         btnText = "Delete";
     }
     auto btn = QStyleOptionButton();
+#if (defined (Q_OS_MAC))
+    int margin = 0;
+#else
     int margin = 4;
+#endif
     btn.rect =
         QRect(
             option.rect.left() + margin,
@@ -40,7 +45,12 @@ void FileResultsTableDelegate::paint(
     }
     painter->save();
     auto font = painter->font();
-    font.setPixelSize(14);
+#if (defined (Q_OS_MAC))
+    int pixelSize = 12;
+#else
+    int pixelSize = 14;
+#endif
+    font.setPixelSize(pixelSize);
     painter->setFont(font);
     QApplication::style()->drawControl(QStyle::CE_PushButton, &btn, painter);
     painter->restore();

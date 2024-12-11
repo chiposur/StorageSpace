@@ -4,6 +4,11 @@ FileResult::FileResult()
 {
 }
 
+FileResult::FileResult(const FileResult& other) {
+    path = other.path;
+    fileSizeInBytes = other.fileSizeInBytes;
+}
+
 FileResult &FileResult::operator=(const FileResult &other)
 {
     path = other.path;

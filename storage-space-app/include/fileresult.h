@@ -7,9 +7,10 @@
 class FileResult {
 public:
     FileResult();
+    FileResult(const FileResult &other);
 
-    FileResult &operator=(const FileResult &fileResult);
-    bool operator==(const FileResult &fileResult);
+    FileResult &operator=(const FileResult &other);
+    bool operator==(const FileResult &other);
 
     QString getFormattedFileSize() const;
 

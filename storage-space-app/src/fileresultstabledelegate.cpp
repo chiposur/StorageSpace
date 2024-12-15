@@ -29,7 +29,7 @@ void FileResultsTableDelegate::paint(
     {
         btnText = "Delete";
     }
-    auto btn = QStyleOptionButton();
+    QStyleOptionButton btn;
 #if (defined (Q_OS_MAC))
     int margin = 0;
 #else
@@ -42,9 +42,13 @@ void FileResultsTableDelegate::paint(
             option.rect.width() - margin * 2,
             option.rect.height() - margin * 2);
     btn.text = btnText;
-    if (option.state == (option.state | QStyle::State_MouseOver))
+    if (option.state & QStyle::State_MouseOver)
     {
-        btn.state = QStyle::State_Enabled | QStyle::State_MouseOver;
+        btn.state |= QStyle::State_MouseOver;
+    }
+    if (option.state & QStyle::State_ReadOnly)
+    {
+        btn.state |= QStyle::State_ReadOnly;
     }
     painter->save();
     auto font = painter->font();

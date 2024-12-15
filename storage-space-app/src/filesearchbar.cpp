@@ -124,8 +124,8 @@ void FileSearchBar::onMaxInputChanged(qint64 maxSize)
 
 void FileSearchBar::onDepthChanged(const QString &depth)
 {
-    bool *ok = new bool();
-    qint64 convertedDepth = depth.toLongLong(ok);
+    bool ok;
+    qint64 convertedDepth = depth.toLongLong(&ok);
     if (!ok || depth.isEmpty())
     {
         convertedDepth = -1;

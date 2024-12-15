@@ -21,6 +21,7 @@ Run as CLI by specifying one or more arguments:
 | **Search regular expression** | Regular expression search on file names |
 | **Min** | Min file size in bytes                                        |
 | **Max** | Max file size in bytes                                        |
+| **Depth** | Folder depth to recursively search into                     |
 | **Recursive** | Recursive search on nested folders                      |
 | **Search directory** | Search directory to start from                   |
 
@@ -34,12 +35,13 @@ Run as CLI by specifying one or more arguments:
 | **-r** | Recursive search on nested folders                             |
 | **--min** | Min file size in bytes                                      |
 | **--max** | Max file size in bytes                                      |
+| **--depth** | Folder depth to recursively search into                   |
 | **--sort-by** | Sort by [path, size]                                    |
-| **--asc** | If sort-by is specified, sort ascending (default).          |
-| **--desc** | If sort-by is specified, sort descending.                  |
+| **--asc** | If sort-by is specified, sort ascending (default)           |
+| **--desc** | If sort-by is specified, sort descending                   |
 
 ## Build
 
-Tested on Qt >= 5.15.2 and compiled with MSVC 2019 64 bit
+Tested on Qt >= 5.15.2 and compiled with MSVC 2019 64 bit (Windows) and Clang (Mac)
 
 Distribution can be handled with the [windeployqt tool](https://doc.qt.io/qt-6/windows-deployment.html#the-windows-deployment-tool) on Windows, [macdeployqt](https://doc.qt.io/qt-6/macos-deployment.html) on Mac, or [manually](https://doc.qt.io/qt-6/linux-deployment.html) on Linux/X11.

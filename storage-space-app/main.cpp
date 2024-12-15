@@ -72,6 +72,11 @@ int main(int argc, char *argv[])
         "Maximum file size in bytes.",
         "maximum file size"
     );
+    const QCommandLineOption depthOption(
+        "depth",
+        "Folder depth to recursively search into.",
+        "folder depth"
+    );
     const QCommandLineOption sortByOption(
         "sort-by",
         "Field to sort by (\"path\", \"size\".",
@@ -92,6 +97,7 @@ int main(int argc, char *argv[])
        recursiveOption,
        minOption,
        maxOption,
+       depthOption,
        sortByOption,
        ascOption,
        descOption
@@ -149,6 +155,20 @@ int main(int argc, char *argv[])
         else
         {
             std::cout << "Max file size must be a valid 64 bit integer >= 0.\n";
+            return 0;
+        }
+    }
+    if (parser.isSet(depthOption))
+    {
+        bool ok;
+        qint64 depth = parser.value(depthOption).toLongLong(&ok);
+        if (ok && depth >= 0)
+        {
+            options.maxDepth = depth;
+        }
+        else
+        {
+            std::cout << "Depth must be a valid 64 bit integer >= 0.\n";
             return 0;
         }
     }

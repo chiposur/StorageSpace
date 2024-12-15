@@ -21,9 +21,10 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     QLabel *fileNameContainsLabel = new QLabel(this);
     QLabel *fileNameExprLabel = new QLabel(this);
     fileNameContainsLabel->setText("Search text:");
-    fileNameExprLabel->setText("Search regular expression:");
+    fileNameExprLabel->setText("Perl-compatible regex:");
     firstRow->addWidget(fileNameContainsLabel);
     firstRow->addWidget(fileNameContainsEdit);
+    firstRow->addSpacing(8);
     firstRow->addWidget(fileNameExprLabel);
     firstRow->addWidget(fileNameExprEdit);
     QHBoxLayout *secondRow = new QHBoxLayout();

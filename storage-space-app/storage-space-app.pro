@@ -15,6 +15,7 @@ SOURCES += \
     src/filesearchworker.cpp \
     src/filesizeinput.cpp \
     src/mainwindow.cpp \
+    src/perlregexvalidator.cpp \
     src/searchoptions.cpp \
     src/settings.cpp \
     src/settingsdialog.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     include/filesearchworker.h \
     include/filesizeinput.h \
     include/mainwindow.h \
+    include/perlregexvalidator.h \
     include/searchoptions.h \
     include/settings.h \
     include/settingsdialog.h \

@@ -1,4 +1,5 @@
 #include "filesearchbar.h"
+#include "perlregexvalidator.h"
 
 #include <QFileDialog>
 #include <QLabel>
@@ -14,6 +15,7 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     mainLayout->addLayout(firstRow);
     fileNameContainsEdit = new QLineEdit(this);
     fileNameExprEdit = new QLineEdit(this);
+    fileNameExprEdit->setValidator(new PerlRegexValidator());
     connect(fileNameContainsEdit, SIGNAL(textChanged(QString)), this, SLOT(onFileNameContainsChanged(QString)));
     connect(fileNameExprEdit, SIGNAL(textChanged(QString)), this, SLOT(onFileNameExprChanged(QString)));
     QLabel *fileNameContainsLabel = new QLabel(this);

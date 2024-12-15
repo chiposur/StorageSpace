@@ -16,7 +16,7 @@ public:
     const QVector<FileResult> &run();
 
 private:
-    void searchFiles(QDir dir);
+    void searchFiles(QDir dir, qint64 depth);
     bool isMatch(QFileInfo fileInfo);
 
     SearchOptions options;

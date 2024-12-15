@@ -27,6 +27,7 @@ private slots:
     void onFileNameExprChanged(const QString &text);
     void onMinInputChanged(qint64 minSize);
     void onMaxInputChanged(qint64 maxSize);
+    void onDepthChanged(const QString &depth);
     void onRecursiveChecked(bool checked);
     void onCaseSensitiveChecked(bool checked);
     void onSearchDirChanged(const QString &text);
@@ -42,6 +43,7 @@ private:
     QLineEdit *fileNameContainsEdit;
     QLineEdit *fileNameExprEdit;
     QLineEdit *searchDirEdit;
+    QLineEdit *depthEdit;
     FileSizeInput *minInput;
     FileSizeInput *maxInput;
     QCheckBox *isRecursiveCheck;

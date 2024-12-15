@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QLabel>
+#include "limits.h"
 #include <QVBoxLayout>
 
 FileSearchBar::FileSearchBar(QWidget *parent) :
@@ -43,12 +44,22 @@ void FileSearchBar::constructSecondRow()
     mainLayout->addLayout(secondRow);
     minInput = new FileSizeInput(this);
     maxInput = new FileSizeInput(this);
+    depthEdit = new QLineEdit(this);
+    depthEdit->setText("-1");
+    QIntValidator *depthValidator = new QIntValidator();
+    depthValidator->setBottom(-1);
+    depthValidator->setTop(INT_MAX);
+    depthEdit->setValidator(depthValidator);
+    depthEdit->setFixedWidth(90);
     connect(minInput, SIGNAL(fileSizeChanged(qint64)), this, SLOT(onMinInputChanged(qint64)));
     connect(maxInput, SIGNAL(fileSizeChanged(qint64)), this, SLOT(onMaxInputChanged(qint64)));
+    connect(depthEdit,SIGNAL(textEdited(const QString &)), this, SLOT(onDepthChanged(const QString &)));
     QLabel *minLabel = new QLabel(this);
     QLabel *maxLabel = new QLabel(this);
+    QLabel *depthLabel = new QLabel(this);
     minLabel->setText("Min:");
     maxLabel->setText("Max:");
+    depthLabel->setText("Depth:");
     isRecursiveCheck = new QCheckBox(this);
     isRecursiveCheck->setChecked(true);
     QLabel *isRecursiveLabel = new QLabel(this);
@@ -63,6 +74,8 @@ void FileSearchBar::constructSecondRow()
     secondRow->addWidget(minInput);
     secondRow->addWidget(maxLabel);
     secondRow->addWidget(maxInput);
+    secondRow->addWidget(depthLabel);
+    secondRow->addWidget(depthEdit);
     secondRow->addWidget(isRecursiveLabel);
     secondRow->addWidget(isRecursiveCheck);
     secondRow->addSpacing(12);
@@ -107,6 +120,17 @@ void FileSearchBar::onMinInputChanged(qint64 minSize)
 void FileSearchBar::onMaxInputChanged(qint64 maxSize)
 {
     options.maxFileSizeBytes = maxSize;
+}
+
+void FileSearchBar::onDepthChanged(const QString &depth)
+{
+    bool *ok = new bool();
+    qint64 convertedDepth = depth.toLongLong(ok);
+    if (!ok || depth.isEmpty())
+    {
+        convertedDepth = -1;
+    }
+    options.maxDepth = convertedDepth;
 }
 
 void FileSearchBar::onRecursiveChecked(bool checked)

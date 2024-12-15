@@ -12,12 +12,16 @@ const QVector<FileResult> &FileSearch::run()
 {
     QDir dir = options.directory;
     dir.refresh();
-    searchFiles(dir);
+    searchFiles(dir, 0);
     return results;
 }
 
-void FileSearch::searchFiles(QDir dir)
+void FileSearch::searchFiles(QDir dir, qint64 depth)
 {
+    if (options.maxDepth > -1 && depth > options.maxDepth)
+    {
+        return;
+    }
     QFileInfoList list = dir.entryInfoList();
     for (int i = 0; i < list.size(); ++i)
     {
@@ -28,7 +32,7 @@ void FileSearch::searchFiles(QDir dir)
             fileInfo.fileName() != "..";
         if (options.isRecursive && isChildDir)
         {
-            searchFiles(fileInfo.absoluteFilePath());
+            searchFiles(fileInfo.absoluteFilePath(), depth+1);
         }
         else if (fileInfo.isFile() && isMatch(fileInfo))
         {

@@ -12,6 +12,7 @@ public:
     bool isCaseSensitive = false;
     qint64 minFileSizeBytes = -1;
     qint64 maxFileSizeBytes = -1;
+    qint64 maxDepth = -1;
     QString fileNameContainsTxt = "";
     QString fileNameExpr = "";
 };

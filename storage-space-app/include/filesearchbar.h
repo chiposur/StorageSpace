@@ -4,6 +4,7 @@
 #include <QCheckBox>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QVBoxLayout>
 #include <QWidget>
 
 #include "filesizeinput.h"
@@ -33,6 +34,11 @@ private slots:
     void onFileDlgBtnClicked();
 
 private:
+    void constructFirstRow();
+    void constructSecondRow();
+    void constructThirdRow();
+
+    QVBoxLayout *mainLayout;
     QLineEdit *fileNameContainsEdit;
     QLineEdit *fileNameExprEdit;
     QLineEdit *searchDirEdit;

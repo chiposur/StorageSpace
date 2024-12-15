@@ -9,8 +9,16 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     QWidget(parent)
 {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Maximum);
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout = new QVBoxLayout(this);
     setLayout(mainLayout);
+    constructFirstRow();
+    constructSecondRow();
+    constructThirdRow();
+    mainLayout->addStretch();
+}
+
+void FileSearchBar::constructFirstRow()
+{
     QHBoxLayout *firstRow = new QHBoxLayout();
     mainLayout->addLayout(firstRow);
     fileNameContainsEdit = new QLineEdit(this);
@@ -27,6 +35,10 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     firstRow->addSpacing(8);
     firstRow->addWidget(fileNameExprLabel);
     firstRow->addWidget(fileNameExprEdit);
+}
+
+void FileSearchBar::constructSecondRow()
+{
     QHBoxLayout *secondRow = new QHBoxLayout();
     mainLayout->addLayout(secondRow);
     minInput = new FileSizeInput(this);
@@ -57,6 +69,10 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     secondRow->addWidget(isCaseSensitiveLabel);
     secondRow->addWidget(isCaseSensitiveCheck);
     secondRow->addStretch();
+}
+
+void FileSearchBar::constructThirdRow()
+{
     QHBoxLayout *thirdRow = new QHBoxLayout();
     mainLayout->addLayout(thirdRow);
     searchDirEdit = new QLineEdit(options.directory.absolutePath(), this);
@@ -71,7 +87,6 @@ FileSearchBar::FileSearchBar(QWidget *parent) :
     thirdRow->addWidget(searchDirEdit);
     thirdRow->addWidget(fileDlgBtn);
     thirdRow->addWidget(searchBtn);
-    mainLayout->addStretch();
 }
 
 void FileSearchBar::onFileNameContainsChanged(const QString &text)

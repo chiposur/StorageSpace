@@ -1,3 +1,4 @@
+#include "fileresultstable.h"
 #include "fileresultstabledelegate.h"
 
 #include <QApplication>
@@ -11,7 +12,9 @@ void FileResultsTableDelegate::paint(
     const QStyleOptionViewItem &option,
     const QModelIndex &index) const
 {
-    bool isOpenOrDeleteIndex = index.column() == 2 || index.column() == 3;
+    bool isOpenOrDeleteIndex =
+        index.column() == FileResultsTable::OPEN_IN_FOLDER_COL ||
+        index.column() == FileResultsTable::DELETE_COL;
     QString btnText;
     if (!isOpenOrDeleteIndex)
     {

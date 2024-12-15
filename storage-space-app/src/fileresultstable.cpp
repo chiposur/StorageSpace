@@ -57,13 +57,13 @@ void FileResultsTable::onCellClicked(const QModelIndex &index)
     int column = index.column();
     switch (column)
     {
-        case 2:
+        case OPEN_IN_FOLDER_COL:
         {
             QFileInfo fileInfo = QFileInfo(path);
             emit openInFolder(fileInfo);
             break;
         }
-        case 3:
+        case DELETE_COL:
         {
             QFile file = QFile(path);
             emit deleteFile(file, QDir(path));

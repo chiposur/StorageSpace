@@ -17,6 +17,8 @@ class FileResultsTable : public QTableView
 public:
     static const int PATH_COL = 0;
     static const int SIZE_COL = 1;
+    static const int OPEN_IN_FOLDER_COL = 2;
+    static const int DELETE_COL = 3;
 
     FileResultsTable(QVector<FileResult> *results, QWidget *parent = nullptr);
     ~FileResultsTable();

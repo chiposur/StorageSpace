@@ -42,15 +42,7 @@ void FileResultsTableDelegate::paint(
             option.rect.width() - margin * 2,
             option.rect.height() - margin * 2);
     btn.text = btnText;
-    if (option.state & QStyle::State_MouseOver)
-    {
-        btn.state |= QStyle::State_MouseOver;
-    }
-    if (option.state & QStyle::State_ReadOnly)
-    {
-        btn.state |= QStyle::State_ReadOnly;
-    }
-    painter->save();
+    btn.state |= QStyle::State_Enabled;
     auto font = painter->font();
 #if (defined (Q_OS_MAC))
     int pixelSize = 12;
@@ -58,6 +50,11 @@ void FileResultsTableDelegate::paint(
     int pixelSize = 14;
 #endif
     font.setPixelSize(pixelSize);
+    if (option.state & QStyle::State_MouseOver)
+    {
+        btn.palette.setColor(QPalette::ButtonText, QColor::fromRgb(0, 102, 255));
+    }
+    painter->save();
     painter->setFont(font);
     QApplication::style()->drawControl(QStyle::CE_PushButton, &btn, painter);
     painter->restore();

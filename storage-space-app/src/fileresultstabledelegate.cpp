@@ -12,6 +12,11 @@ void FileResultsTableDelegate::paint(
     const QStyleOptionViewItem &option,
     const QModelIndex &index) const
 {
+#if (defined (Q_OS_MAC))
+    bool isMac = true;
+#else
+    bool isMac = false;
+#endif
     bool isOpenOrDeleteIndex =
         index.column() == FileResultsTable::OPEN_IN_FOLDER_COL ||
         index.column() == FileResultsTable::DELETE_COL;
@@ -30,11 +35,7 @@ void FileResultsTableDelegate::paint(
         btnText = "Delete";
     }
     QStyleOptionButton btn;
-#if (defined (Q_OS_MAC))
-    int margin = 0;
-#else
-    int margin = 4;
-#endif
+    int margin = isMac ? 0 : 4;
     btn.rect =
         QRect(
             option.rect.left() + margin,
@@ -44,15 +45,15 @@ void FileResultsTableDelegate::paint(
     btn.text = btnText;
     btn.state |= QStyle::State_Enabled;
     auto font = painter->font();
-#if (defined (Q_OS_MAC))
-    int pixelSize = 12;
-#else
-    int pixelSize = 14;
-#endif
+    int pixelSize = isMac ? 12 : 14;
     font.setPixelSize(pixelSize);
     if (option.state & QStyle::State_MouseOver)
     {
-        btn.palette.setColor(QPalette::ButtonText, QColor::fromRgb(0, 102, 255));
+        btn.state |= QStyle::State_MouseOver;
+        if (isMac)
+        {
+            btn.palette.setColor(QPalette::ButtonText, QColor::fromRgb(0, 102, 255));
+        }
     }
     painter->save();
     painter->setFont(font);

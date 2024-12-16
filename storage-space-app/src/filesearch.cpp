@@ -46,7 +46,7 @@ void FileSearch::searchFiles(QDir dir, qint64 depth)
 
 bool FileSearch::isMatch(QFileInfo fileInfo)
 {
-    const QString fileName = fileInfo.fileName();
+    const QString fileName = fileInfo.absoluteFilePath();
     const qint64 fileSize = fileInfo.size();
     const qint64 minFileSizeBytes = options.minFileSizeBytes;
     const qint64 maxFileSizeBytes = options.maxFileSizeBytes;

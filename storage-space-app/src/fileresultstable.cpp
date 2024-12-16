@@ -17,13 +17,32 @@ FileResultsTable::FileResultsTable(QVector<FileResult> *results, QWidget *parent
     setItemDelegate(new FileResultsTableDelegate());
     horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     setMouseTracking(true);
-    setSortingEnabled(true);
+    setSortingEnabled(false);
+    connect(horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(onSectionClicked(int)));
     connect(sortProxy, SIGNAL(sortingInProgress(bool)), this, SLOT(onSortingInProgress(bool)));
     connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(onCellClicked(QModelIndex)));
 }
 
 FileResultsTable::~FileResultsTable()
 {
+}
+
+void FileResultsTable::onSectionClicked(int logicalIndex)
+{
+    auto header = horizontalHeader();
+    if (logicalIndex == OPEN_IN_FOLDER_COL || logicalIndex == DELETE_COL)
+    {
+        header->setSortIndicatorShown(false);
+        return;
+    }
+    auto indicatorOrder = horizontalHeader()->sortIndicatorOrder();
+    if (!indicatorOrder)
+    {
+        indicatorOrder = Qt::AscendingOrder;
+    }
+    header->setSortIndicatorShown(true);
+    header->setSortIndicator(logicalIndex, indicatorOrder);
+    sortProxy->sort(logicalIndex, indicatorOrder);
 }
 
 void FileResultsTable::onSortingInProgress(bool inProgress)

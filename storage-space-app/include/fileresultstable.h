@@ -35,6 +35,7 @@ signals:
 private slots:
     void onSortingInProgress(bool inProgress);
     void onCellClicked(const QModelIndex &);
+    void onSectionClicked(int logicalIndex);
 
 private:
     FileResultsTableModel *model;

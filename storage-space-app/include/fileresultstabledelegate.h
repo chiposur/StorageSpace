@@ -26,6 +26,10 @@ private:
 
     static const QString OPEN_IN_FOLDER_TXT;
     static const QString DELETE_TXT;
+    static const QColor MAC_DARK_MODE_BTN_BG;
+    static const QColor MAC_DARK_MODE_BTN_TXT;
+    static const QColor MAC_LIGHT_MODE_BTN_BG;
+    static const QColor MAC_LIGHT_MODE_BTN_TXT;
 };
 
 #endif // FILERESULTSTABLEDELEGATE_H

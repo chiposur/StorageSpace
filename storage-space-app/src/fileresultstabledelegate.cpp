@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include <QPainter>
+#include <QPushButton>
 #include <QRect>
 #include <QStyleHints>
 #include <QStyleOptionButton>
@@ -10,6 +11,11 @@
 
 const QString FileResultsTableDelegate::OPEN_IN_FOLDER_TXT = "Open in folder";
 const QString FileResultsTableDelegate::DELETE_TXT = "Delete";
+
+const QColor FileResultsTableDelegate::MAC_DARK_MODE_BTN_BG = QColor::fromRgb(101, 101, 101);
+const QColor FileResultsTableDelegate::MAC_DARK_MODE_BTN_TXT = QColor::fromRgb(231, 231, 231);
+const QColor FileResultsTableDelegate::MAC_LIGHT_MODE_BTN_BG = QColor::fromRgb(101, 101, 101);
+const QColor FileResultsTableDelegate::MAC_LIGHT_MODE_BTN_TXT = Qt::black;
 
 void FileResultsTableDelegate::paint(
     QPainter *painter,
@@ -68,15 +74,16 @@ void FileResultsTableDelegate::paintCustomMacButton(
 {
     painter->save();
     bool darkMode = QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
-    auto btnBg = darkMode ? QColor::fromRgb(101, 101, 101) : QColor::fromRgb(236, 236, 236);
+    auto btnBg = darkMode ? MAC_DARK_MODE_BTN_BG : MAC_LIGHT_MODE_BTN_BG;
     auto font = painter->font();
     font.setPixelSize(12);
     painter->setFont(font);
-    auto bgRect = getRectFromOption(option, text, font, 4);
+    auto bgRect = getRectFromOption(option, text, font, 5);
     painter->setBrush(btnBg);
     painter->setPen(btnBg);
-    painter->drawRoundedRect(bgRect, 4, 4);
-    painter->setPen(darkMode ? QColor::fromRgb(231, 231, 231) : Qt::black);
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->drawRoundedRect(bgRect, 5, 5);
+    painter->setPen(darkMode ? MAC_DARK_MODE_BTN_TXT : MAC_LIGHT_MODE_BTN_TXT);
     QTextOption textOption(Qt::AlignmentFlag::AlignVCenter | Qt::AlignHCenter);
     painter->drawText(QRectF(bgRect), text, textOption);
     painter->restore();

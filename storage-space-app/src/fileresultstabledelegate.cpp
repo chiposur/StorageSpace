@@ -45,12 +45,12 @@ void FileResultsTableDelegate::paint(
         return;
     }
     QStyleOptionButton btn;
-    btn.rect = getRectFromOption(option, 4);
-    btn.text = btnText;
-    btn.state |= QStyle::State_Enabled;
     auto font = painter->font();
     int pixelSize = 14;
     font.setPixelSize(pixelSize);
+    btn.rect = getRectFromOption(option, btnText, font, 4);
+    btn.text = btnText;
+    btn.state |= QStyle::State_Enabled;
     if (option.state & QStyle::State_MouseOver)
     {
         btn.state |= QStyle::State_MouseOver;
@@ -69,22 +69,31 @@ void FileResultsTableDelegate::paintCustomMacButton(
     painter->save();
     bool darkMode = QGuiApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark;
     auto btnBg = darkMode ? QColor::fromRgb(101, 101, 101) : QColor::fromRgb(236, 236, 236);
-    auto bgRect = getRectFromOption(option, 4);
-    painter->fillRect(bgRect, btnBg);
     auto font = painter->font();
     font.setPixelSize(12);
     painter->setFont(font);
+    auto bgRect = getRectFromOption(option, text, font, 4);
+    painter->fillRect(bgRect, btnBg);
     painter->setPen(darkMode ? QColor::fromRgb(231, 231, 231) : Qt::black);
     QTextOption textOption(Qt::AlignmentFlag::AlignVCenter | Qt::AlignHCenter);
     painter->drawText(QRectF(bgRect), text, textOption);
     painter->restore();
 }
 
-QRect FileResultsTableDelegate::getRectFromOption(const QStyleOptionViewItem &option, int margin)
+QRect FileResultsTableDelegate::getRectFromOption(
+    const QStyleOptionViewItem &option,
+    const QString &text,
+    const QFont &font,
+    int margin)
 {
+    QFontMetrics fontMetrics(font);
+    int txtWidth = fontMetrics.horizontalAdvance(text);
+    int horizontalPadding = 12;
+    int btnWidth = txtWidth + horizontalPadding * 2;
+    int leftOffset = (option.rect.width() - btnWidth) / 2;
     return QRect(
-        option.rect.left() + margin,
+        option.rect.left() + leftOffset,
         option.rect.top() + margin,
-        option.rect.width() - margin * 2,
+        btnWidth,
         option.rect.height() - margin * 2);
 }

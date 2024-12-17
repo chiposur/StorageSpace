@@ -16,6 +16,12 @@ FileResultsTable::FileResultsTable(QVector<FileResult> *results, QWidget *parent
     setModel(sortProxy);
     setItemDelegate(new FileResultsTableDelegate());
     horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    horizontalHeader()->resizeSection(
+        FileResultsTable::OPEN_IN_FOLDER_COL,
+        120);
+    horizontalHeader()->resizeSection(
+        FileResultsTable::DELETE_COL,
+        76);
     setMouseTracking(true);
     setSortingEnabled(false);
     connect(horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(onSectionClicked(int)));

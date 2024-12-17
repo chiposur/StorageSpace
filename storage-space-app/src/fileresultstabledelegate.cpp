@@ -73,7 +73,9 @@ void FileResultsTableDelegate::paintCustomMacButton(
     font.setPixelSize(12);
     painter->setFont(font);
     auto bgRect = getRectFromOption(option, text, font, 4);
-    painter->fillRect(bgRect, btnBg);
+    painter->setBrush(btnBg);
+    painter->setPen(btnBg);
+    painter->drawRoundedRect(bgRect, 4, 4);
     painter->setPen(darkMode ? QColor::fromRgb(231, 231, 231) : Qt::black);
     QTextOption textOption(Qt::AlignmentFlag::AlignVCenter | Qt::AlignHCenter);
     painter->drawText(QRectF(bgRect), text, textOption);

@@ -17,7 +17,7 @@ Run as CLI by specifying one or more arguments:
 
 | Parameters  | Description                                               |
 |------------:| ----------------------------------------------------------|
-| **Search text** | Contains search on relative file names                |
+| **Search text** | Contains search on file names                         |
 | **Search regular expression** | Regular expression search on file names |
 | **Min** | Min file size in bytes                                        |
 | **Max** | Max file size in bytes                                        |
@@ -30,7 +30,7 @@ Run as CLI by specifying one or more arguments:
 | Arguments   | Description                                               |
 |------------:| ----------------------------------------------------------|
 | **-d, --dir** | Search directory to start from                          |
-| **--search-text** | Contains search on relative file names              |
+| **--search-text** | Contains search on file names                       |
 | **--search-regex** | Regular expression search on file names            |
 | **-r** | Recursive search on nested folders                             |
 | **--min** | Min file size in bytes                                      |

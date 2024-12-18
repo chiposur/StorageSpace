@@ -14,7 +14,7 @@ const QString FileResultsTableDelegate::DELETE_TXT = "Delete";
 
 const QColor FileResultsTableDelegate::MAC_DARK_MODE_BTN_BG = QColor::fromRgb(101, 101, 101);
 const QColor FileResultsTableDelegate::MAC_DARK_MODE_BTN_TXT = QColor::fromRgb(231, 231, 231);
-const QColor FileResultsTableDelegate::MAC_LIGHT_MODE_BTN_BG = QColor::fromRgb(101, 101, 101);
+const QColor FileResultsTableDelegate::MAC_LIGHT_MODE_BTN_BG = QColor::fromRgb(236, 236, 236);
 const QColor FileResultsTableDelegate::MAC_LIGHT_MODE_BTN_TXT = Qt::black;
 
 void FileResultsTableDelegate::paint(

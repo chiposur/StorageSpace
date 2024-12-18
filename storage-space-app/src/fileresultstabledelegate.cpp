@@ -52,9 +52,9 @@ void FileResultsTableDelegate::paint(
     }
     QStyleOptionButton btn;
     auto font = painter->font();
-    int pixelSize = 14;
+    int pixelSize = 12;
     font.setPixelSize(pixelSize);
-    btn.rect = getRectFromOption(option, btnText, font, 4);
+    btn.rect = getRectFromOption(option, btnText, font, 3);
     btn.text = btnText;
     btn.state |= QStyle::State_Enabled;
     if (option.state & QStyle::State_MouseOver)
@@ -63,6 +63,7 @@ void FileResultsTableDelegate::paint(
     }
     painter->save();
     painter->setFont(font);
+    painter->setRenderHint(QPainter::Antialiasing);
     QApplication::style()->drawControl(QStyle::CE_PushButton, &btn, painter);
     painter->restore();
 }

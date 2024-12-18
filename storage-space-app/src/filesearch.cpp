@@ -22,14 +22,11 @@ void FileSearch::searchFiles(QDir dir, qint64 depth)
     {
         return;
     }
-    QFileInfoList list = dir.entryInfoList();
+    QFileInfoList list = dir.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot);
     for (int i = 0; i < list.size(); ++i)
     {
         QFileInfo fileInfo = list[i];
-        bool isChildDir =
-            fileInfo.isDir() &&
-            fileInfo.fileName() != "." &&
-            fileInfo.fileName() != "..";
+        bool isChildDir = fileInfo.isDir();
         if (options.isRecursive && isChildDir)
         {
             searchFiles(fileInfo.absoluteFilePath(), depth+1);

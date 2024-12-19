@@ -4,7 +4,6 @@
 #include <QSortFilterProxyModel>
 #include <QThread>
 
-#include "fileresult.h"
 #include "fileresultstablesortproxyworker.h"
 
 class FileResultsTableSortProxy : public QSortFilterProxyModel

@@ -6,10 +6,6 @@ FileResultsTableModel::FileResultsTableModel(QVector<FileResult> *results)
     this->results = results;
 }
 
-FileResultsTableModel::~FileResultsTableModel()
-{
-}
-
 int FileResultsTableModel::rowCount(const QModelIndex &index) const
 {
     Q_UNUSED(index)

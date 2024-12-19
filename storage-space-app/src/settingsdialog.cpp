@@ -27,10 +27,6 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     btnLayout->addWidget(cancelBtn);
 }
 
-SettingsDialog::~SettingsDialog()
-{
-}
-
 void SettingsDialog::onOkBtnClicked()
 {
     bool saveWindowGeometry = saveWindowGeometryCheck->isChecked();

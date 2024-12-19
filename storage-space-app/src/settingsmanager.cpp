@@ -10,10 +10,6 @@ SettingsManager::SettingsManager()
     QCoreApplication::setApplicationName("Storage Space");
 }
 
-SettingsManager::~SettingsManager()
-{
-}
-
 SettingsManager *SettingsManager::getInstance()
 {
     static SettingsManager singleton;

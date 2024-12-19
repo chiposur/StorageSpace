@@ -21,7 +21,6 @@ public:
     static const int DELETE_COL = 3;
 
     FileResultsTable(QVector<FileResult> *results, QWidget *parent = nullptr);
-    ~FileResultsTable();
 
     void setRows(const QVector<FileResult> &results);
     void deleteRow(int row);

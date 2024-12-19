@@ -11,7 +11,6 @@ class SettingsDialog : public QDialog
 
 public:
     SettingsDialog(QWidget *parent = nullptr);
-    ~SettingsDialog();
 
 private slots:
     void onOkBtnClicked();

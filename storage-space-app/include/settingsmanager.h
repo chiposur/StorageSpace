@@ -14,7 +14,6 @@ public:
 
 private:
     SettingsManager();
-    ~SettingsManager();
 };
 
 #endif // SETTINGSMANAGER_H

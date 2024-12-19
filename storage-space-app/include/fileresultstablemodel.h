@@ -9,7 +9,6 @@ class FileResultsTableModel : public QAbstractTableModel
 {
 public:
     FileResultsTableModel(QVector<FileResult> *results);
-    ~FileResultsTableModel();
 
     int rowCount(const QModelIndex &index) const;
     int columnCount(const QModelIndex &index) const;

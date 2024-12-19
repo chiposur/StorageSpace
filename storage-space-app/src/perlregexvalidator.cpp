@@ -1,9 +1,5 @@
 #include "perlregexvalidator.h"
 
-PerlRegexValidator::PerlRegexValidator()
-{
-}
-
 QValidator::State PerlRegexValidator::validate(QString &input, int &pos) const
 {
     Q_UNUSED(pos)

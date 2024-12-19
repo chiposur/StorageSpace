@@ -29,10 +29,6 @@ FileResultsTable::FileResultsTable(QVector<FileResult> *results, QWidget *parent
     connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(onCellClicked(QModelIndex)));
 }
 
-FileResultsTable::~FileResultsTable()
-{
-}
-
 void FileResultsTable::onSectionClicked(int logicalIndex)
 {
     auto header = horizontalHeader();

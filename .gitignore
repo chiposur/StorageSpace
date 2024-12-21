@@ -71,8 +71,9 @@ build/
 *.dll
 *.exe
 
-# qtcreator generated files
+# qtcreator generated files and folders
 *.pro.user*
+.qtc_clangd/
 
 # xemacs temporary files
 *.flc

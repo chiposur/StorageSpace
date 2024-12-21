@@ -2,6 +2,8 @@ QT += core gui widgets
 
 CONFIG += c++17
 
+ICON = images/storagespace.icns
+
 SOURCES += \
     main.cpp \
     src/fileresult.cpp \

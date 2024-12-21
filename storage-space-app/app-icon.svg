@@ -1,4 +1,4 @@
-<svg width="256" height="256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+<svg width="1024" height="1024" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
   <style>
     .box-symbols {
       font: bold 40px sans-serif;
@@ -6,9 +6,9 @@
     }
   </style>
   # Box
-  <rect width="256" height="256" style="fill:rgb(225, 193, 110);stroke-width:3;stroke:black" />
+  <rect width="1024" height="1024" style="fill:rgb(225, 193, 110);stroke-width:3;stroke:black" />
   # Tape
-  <rect x="113" y="2" width="30" height="252" style="fill:rgb(255, 224, 178);" />
+  <rect x="452" y="2" width="120" height="1020" style="fill:rgb(255, 224, 178);" />
   # Box symbols
   <!-- <text x="210" y="240" class="box-symbols">♻</text> -->
 </svg>

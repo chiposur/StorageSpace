@@ -57,6 +57,10 @@ private:
     int resultsTimeMs = 0;
     int sortTimeMs = 0;
     bool searchRun = false;
+#if (defined (Q_OS_MAC))
+    const QIcon APP_ICON = QIcon(QPixmap(":/images/storagespace.icns"));
+#else
     const QIcon APP_ICON = QIcon(QPixmap(":/images/app-icon.ico"));
+#endif
 };
 #endif // MAINWINDOW_H

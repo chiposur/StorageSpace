@@ -58,7 +58,7 @@ private:
     int sortTimeMs = 0;
     bool searchRun = false;
 #if (defined (Q_OS_MAC))
-    const QIcon APP_ICON = QIcon(QPixmap(":/images/storagespace.icns"));
+    const QIcon APP_ICON = QIcon(":/images/storagespace.icns");
 #else
     const QIcon APP_ICON = QIcon(QPixmap(":/images/app-icon.ico"));
 #endif

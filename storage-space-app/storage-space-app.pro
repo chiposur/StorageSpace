@@ -2,7 +2,7 @@ QT += core gui widgets
 
 CONFIG += c++17
 
-ICON = images/storagespace.icns
+macx:ICON = images/storagespace.icns
 
 SOURCES += \
     main.cpp \

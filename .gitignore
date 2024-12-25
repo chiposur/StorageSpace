@@ -103,3 +103,6 @@ build/
 # Python byte code
 *.pyc
 
+# dSYM
+*storage-space-app.app.dSYM/
+

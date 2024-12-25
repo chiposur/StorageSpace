@@ -104,5 +104,5 @@ build/
 *.pyc
 
 # dSYM
-*storage-space-app.app.dSYM/
+*StorageSpace.app.dSYM/
 

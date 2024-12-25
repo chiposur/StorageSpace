@@ -7,11 +7,11 @@ This program can also be run as a CLI, providing the file search parameters as c
 
 Launch as GUI by double clicking or running on the command line without arguments:
 
-`storage-space-app`
+`StorageSpace`
 
 Run as CLI by specifying one or more arguments:
 
-`storage-space-app --dir /path/to/dir --sort-by size --desc`
+`StorageSpace --dir /path/to/dir --sort-by size --desc`
 
 ## File Search Parameters
 

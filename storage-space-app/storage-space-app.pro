@@ -1,5 +1,7 @@
 QT += core gui widgets
 
+TARGET = StorageSpace
+
 CONFIG += c++17
 
 macx:ICON = images/storagespace.icns
